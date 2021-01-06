@@ -45,7 +45,7 @@ export const Slider = () => {
                         <>
                           <dt>{title}:</dt>
                           <dd>
-                            {title === 'Website' ? (
+                            {title === 'Website' || title === 'URL' ? (
                               <a
                                 href={description}
                                 target='_blank'
@@ -70,7 +70,7 @@ export const Slider = () => {
                           <>
                             <dt>{title}:</dt>
                             <dd>
-                              {title === 'Website' ? (
+                              {title === 'Website' || title === 'URL' ? (
                                 <a
                                   href={description}
                                   target='_blank'
