@@ -1,0 +1,112 @@
+body::before {
+  display: none;
+  content: "lg";
+}
+.gallery-carousel { width: 1170px; }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 992px - 1199px
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+@media (min-width: 992px) and (max-width: 1199px) {
+  body::before {
+    content: "md";
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 768px - 991px
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+@media (min-width: 768px) and (max-width: 991px) {
+  body::before {
+    content: "sm";
+  }
+  body {
+    &.show-off-screen-content {
+      .page-wrapper { @include transform(translateX(700px)); }
+    }
+  }
+  .off-screen-content { width: 500px; left: -700px; }
+  .off-screen-navigation { left: -200px; width: 200px; }
+  .off-screen-content section .section-wrapper {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 30px;
+  }
+  .off-screen-content section .section-wrapper:last-child {
+    padding-bottom: 30px;
+  }
+  .off-screen-navigation ul li a { padding: 8px 20px; }
+  .off-screen-navigation ul li a:hover, .off-screen-navigation ul li a.active { padding-left: 25px; }
+
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// max to 767px
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+@media (max-width: 767px) {
+  body::before {
+    content: "xs";
+  }
+  body, html { overflow: hidden; }
+  body.show-off-screen-content .navigation .nav-btn {
+    left: -70px;
+  }
+  body {
+    &.show-off-screen-content {
+      .page-wrapper { @include transform(translateX(100%)); }
+    }
+  }
+
+  .slide {
+    .description { bottom: 70px; left: 30px;
+      &:after { left: -30px; }
+      h2 { margin-bottom: 20px; font-size: 20px; }
+      dl { font-size: 11px; }
+    }
+  }
+  .slider-navigation { left: 30px; }
+  .slider-controls { @include transform(translateY(0%)); right: 60px;
+    .zoom-out { display: none; }
+  }
+  .slider-pager { width: calc(100% - 150px); }
+  .navigation { white-space: nowrap;
+    .nav-btn { padding: 20px 30px 20px 30px; }
+  }
+
+  .main-title { padding-left: 20px; padding-right: 20px;
+    h1 { font-size: 30px; }
+    h2 { font-size: 16px; }
+  }
+
+  .off-screen-navigation { left: -60px; width: 60px;
+    ul {
+      li {
+        a { padding: 12px 25px;
+          &:hover ,&.active { padding-left: 25px; }
+          i { display: block; }
+          &.new-window {
+            &:after { right: 5px; }
+          }
+        }
+      }
+    }
+    span { display: none; }
+  }
+  .off-screen-content { width: calc(100% - 60px); left: -100%; }
+  .off-screen-content section .section-wrapper {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 15px;
+  }
+  .off-screen-content section .section-wrapper:last-child {
+    padding-bottom: 15px;
+  }
+
+
+  .price-package { padding: 20px; padding-top: 10px; padding-bottom: 20px;
+    .price { position: relative; top: 10px; left: 20px; }
+    .description { margin-top: 30px; margin-left: 0; }
+  }
+
+  .scrollbar-inner { overflow-y: scroll; }
+}
+
+
