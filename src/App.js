@@ -1,3 +1,5 @@
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { OffScreenNav, Nav, SliderNav, Slider, OffScreenContent } from "components";
 
 function App() {
@@ -9,6 +11,7 @@ function App() {
       <Slider />
       <SliderNav />
       <OffScreenContent />
+      <ToastContainer />
     </>
   );
 }

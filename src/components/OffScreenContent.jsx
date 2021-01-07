@@ -1,154 +1,110 @@
+import { data } from 'data';
+import { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
+import emailjs from 'emailjs-com';
+
+const {
+  name,
+  image,
+  bio,
+  additionalBio,
+  skillList,
+  signature,
+  servicesText,
+  services,
+  address: { firstLine, secondLine },
+  social: { email, facebook, whatsapp, github },
+} = data;
+
 export const OffScreenContent = () => {
-  const onClick = (e) => {
+  const [contact, setContact] = useState({ name: '', email: '', message: '' });
+
+  const formUsed = () => Boolean(localStorage.getItem('formUsed') || false);
+  const [formUsedTrue, setFormUsedTrue] = useState(formUsed);
+
+  useEffect(() => {
+    localStorage.setItem('formUsed', formUsedTrue);
+  }, [formUsedTrue]);
+
+  const onSubmit = (e) => {
     e.preventDefault();
+    emailjs
+      .sendForm(
+        'service_surp1le',
+        'template_ug2m2k1',
+        e.target,
+        'user_SxXYSOILc89pQ0TTVT5wx'
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          toast.success(
+            'I have recieved your message and will contact you soon.'
+          );
+          setFormUsedTrue(true);
+        },
+        (error) => {
+          console.log(error.text);
+          toast.error('Something went wrong!!!.');
+        }
+      );
+    e.target.reset();
+    console.log('form submitted');
   };
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    setContact({ ...contact, [name]: value });
+  };
+
   return (
     <div className='off-screen-content'>
       <div className='scrollbar-inner'>
         <section id='about-me'>
           <div className='image-header'>
             <div className='bg-transfer'>
-              <img src='assets/img/image-header.jpg' alt='' />
+              <img src={image} alt='' />
             </div>
           </div>
           <div className='section-wrapper'>
             <h2>About Me</h2>
-            <h3>Hi! I'm Fahad Arshad</h3>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-              sagittis lacinia tellus. Nullam venenatis a sem non dictum.
-              Aliquam orci ipsum, malesuada lacinia faucibus nec, bibendum a
-              enim. Sed efficitur bibendum purus. Fusce libero metu
-            </p>
-
-            <p>
-              Enean sit amet metus sodales, elementum ligula quis, facilisis
-              neque. Sed eu purus ut mauris malesuada viverra eu vitae eros. In
-              odio neque, fermentum id tincidunt vitae, accumsan eu augue. Proin
-              vitae porta nulla.
-            </p>
-            <img src='assets/img/signature-black.png' alt='' />
+            <h3>Hi! I'm {name}</h3>
+            <p>{bio}</p>
+            <p>{additionalBio}</p>
+            <ul>
+              {skillList.map((skill) => (
+                <li key={skill}>{skill}</li>
+              ))}
+            </ul>
+            <img src={signature} alt={name} />
           </div>
         </section>
 
         <section id='services'>
           <div className='section-wrapper'>
             <h2>Services</h2>
-
-            <p>
-              Duis ut finibus elit. Praesent vestibulum porta odio, in commodo
-              velit placerat sed. Vivamus et iaculis sem. Sed nibh turpis,
-              finibus ut est nec, tempus fringilla augue. Quisque blandit nunc
-              eu tincidunt iaculis.
-            </p>
-
-            <div className='service'>
-              <div className='image'>
-                <div className='bg-transfer'>
-                  <img src='assets/img/service-01.jpg' alt='' />
+            <p>{servicesText}</p>
+            {services.map((service) => {
+              const { title, description, image } = service;
+              return (
+                <div className='service'>
+                  <div className='image'>
+                    <div className='bg-transfer'>
+                      <img src={image} alt={title} />
+                    </div>
+                  </div>
+                  <div className='description'>
+                    <h3>{title}</h3>
+                    <p>{description}</p>
+                  </div>
                 </div>
-              </div>
-              <div className='description'>
-                <h3>Professional Photography</h3>
-
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-                  sagittis lacinia tellus. Nullam venenatis a sem non dictum.
-                </p>
-              </div>
-            </div>
-            <div className='service'>
-              <div className='image'>
-                <div className='bg-transfer'>
-                  <img src='assets/img/service-02.jpg' alt='' />
-                </div>
-              </div>
-              <div className='description'>
-                <h3>Wedding Photography</h3>
-
-                <p>
-                  Donec mauris nibh, blandit id eros lacinia, lobortis aliquam
-                  mauris. Suspendisse laoreet, tortor ut convallis facilisis
-                </p>
-              </div>
-            </div>
-            <div className='service'>
-              <div className='image'>
-                <div className='bg-transfer'>
-                  <img src='assets/img/service-03.jpg' alt='' />
-                </div>
-              </div>
-              <div className='description'>
-                <h3>Video Editing</h3>
-
-                <p>
-                  Nullam ultricies purus sed accumsan tempus. Integer lorem dui,
-                  pellentesque at arcu non volutpat fermentum sem.
-                </p>
-              </div>
-            </div>
+              );
+            })}
           </div>
         </section>
-
-        <section id='pricing'>
-          <div className='section-wrapper'>
-            <h2>Pricing</h2>
-
-            <div className='price-package'>
-              <div className='price'>$129</div>
-              <div className='description'>
-                <h3>Basic Package</h3>
-
-                <p>
-                  Enean sit amet metus sodales, elementum ligula quis, facilisis
-                  neque. Sed eu purus ut mauris malesuada viverra eu vitae eros.
-                </p>
-                <ul>
-                  <li>Aenean pretium ex non leo aliquam</li>
-                  <li>Sit amet porta urna interdum</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className='price-package'>
-              <div className='price'>$149</div>
-              <div className='description'>
-                <h3>Advanced Package</h3>
-
-                <p>
-                  Cras ornare ligula quis ultrices fermentum. Maecenas finibus,
-                  sapien non suscipit luctus
-                </p>
-                <ul>
-                  <li>Aenean pretium ex non leo aliquam</li>
-                  <li>Sit amet porta urna interdum</li>
-                  <li>In pretium euismod justo et porttitor</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className='price-package'>
-              <div className='price'>$169</div>
-              <div className='description'>
-                <h3>Professional Package</h3>
-
-                <p>
-                  Phasellus in dolor sit amet lorem scelerisque sodales quis ut
-                  eros. Nullam elit dui, egestas vel tortor
-                </p>
-                <ul>
-                  <li>Aenean pretium ex non leo aliquam</li>
-                  <li>Sit amet porta urna interdum</li>
-                  <li>In pretium euismod justo et porttitor</li>
-                  <li>Sed eu purus ut mauris</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
         <section id='contact'>
-          <div id='map'></div>
+          {/* <div id='map'></div> */}
           <div className='section-wrapper'>
             <h2>Contact</h2>
 
@@ -156,13 +112,11 @@ export const OffScreenContent = () => {
               <div className='col-md-6 col-sm-6'>
                 <h3>Address</h3>
                 <address>
-                  4758 Nancy Street
+                  {firstLine}
                   <br />
-                  +1 919-571-2528
+                  {secondLine}
                   <br />
-                  <a href onClick={onClick}>
-                    hello@example.com
-                  </a>
+                  <a href={`mailto:${email}`}>{email}</a>
                 </address>
               </div>
               <div className='col-md-6 col-sm-6'>
@@ -170,23 +124,33 @@ export const OffScreenContent = () => {
 
                 <div className='social'>
                   <figure>
-                    <a href onClick={onClick} className='icon'>
+                    <a
+                      href={facebook}
+                      className='icon'
+                      target='_blank'
+                      rel='noreferrer'
+                    >
                       <i className='fa fa-facebook'></i>Facebook
                     </a>
                   </figure>
                   <figure>
-                    <a href onClick={onClick} className='icon'>
-                      <i className='fa fa-twitter'></i>Twitter
+                    <a
+                      href={whatsapp}
+                      target='_blank'
+                      rel='noreferrer'
+                      className='icon'
+                    >
+                      <i className='fa fa-whatsapp'></i>Whatsapp
                     </a>
                   </figure>
                   <figure>
-                    <a href onClick={onClick} className='icon'>
-                      <i className='fa fa-youtube'></i>Youtube
-                    </a>
-                  </figure>
-                  <figure>
-                    <a href onClick={onClick} className='icon'>
-                      <i className='fa fa-pinterest'></i>Pinterest
+                    <a
+                      href={github}
+                      target='_blank'
+                      rel='noreferrer'
+                      className='icon'
+                    >
+                      <i className='fa fa-github'></i>Github
                     </a>
                   </figure>
                 </div>
@@ -195,18 +159,20 @@ export const OffScreenContent = () => {
             <br />
 
             <h3>Contact Form</h3>
-
-            <form id='form-contact' method='post' className='form clearfix'>
+            <form className='form clearfix' onSubmit={onSubmit}>
               <div className='row'>
                 <div className='col-md-6 col-sm-6'>
                   <div className='form-group'>
                     <input
                       type='text'
                       className='form-control'
-                      id='form-contact-name'
+                      id='name'
                       name='name'
                       placeholder='Your Name'
+                      onChange={handleChange}
+                      value={contact.name}
                       required
+                      disabled={formUsedTrue}
                     />
                   </div>
                 </div>
@@ -215,10 +181,13 @@ export const OffScreenContent = () => {
                     <input
                       type='email'
                       className='form-control'
-                      id='form-contact-email'
+                      id='email'
                       name='email'
                       placeholder='Your Email'
+                      onChange={handleChange}
+                      value={contact.email}
                       required
+                      disabled={formUsedTrue}
                     />
                   </div>
                 </div>
@@ -228,15 +197,27 @@ export const OffScreenContent = () => {
                   <div className='form-group'>
                     <textarea
                       className='form-control'
-                      id='form-contact-message'
+                      id='message'
                       rows='8'
                       name='message'
                       placeholder='Your Message'
+                      onChange={handleChange}
+                      value={contact.message}
                       required
+                      disabled={formUsedTrue}
                     ></textarea>
                   </div>
                 </div>
               </div>
+              {formUsedTrue && (
+                <div className='row'>
+                  <div className='col-12'>
+                    <h5 style={{ color: 'red' }}>
+                      You can only send message once!! This is to avoid spam.
+                    </h5>
+                  </div>
+                </div>
+              )}
               <div className='form-group clearfix'>
                 <button
                   type='submit'
@@ -246,7 +227,6 @@ export const OffScreenContent = () => {
                   Send a Message
                 </button>
               </div>
-              <div className='form-contact-status'></div>
             </form>
           </div>
         </section>
