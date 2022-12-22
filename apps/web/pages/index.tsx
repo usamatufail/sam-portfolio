@@ -1,10 +1,18 @@
-import { Button } from "ui";
+import { Header } from 'components';
+import type { NextPage } from 'next';
+import Head from 'next/head';
 
-export default function Web() {
+const Home: NextPage = () => {
   return (
-    <div>
-      <h1>Web</h1>
-      <Button />
+    <div className="min-h-screen">
+      <Head>
+        <title>Sam's Portfolio Website</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+      <Header />
     </div>
   );
-}
+};
+
+export default Home;
