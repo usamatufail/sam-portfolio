@@ -1,6 +1,8 @@
+'use client';
+
 import NextLink from 'next/link';
 import styles from './header.module.scss';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 
 interface LinkProps {
   href: string;
@@ -8,8 +10,8 @@ interface LinkProps {
 }
 
 const Link = ({ href, text }: LinkProps) => {
-  const router = useRouter();
-  const isActive = router.pathname === href;
+  const pathname = usePathname();
+  const isActive = pathname === href;
   return (
     <NextLink href={href}>
       <div
@@ -24,8 +26,6 @@ const Link = ({ href, text }: LinkProps) => {
 };
 
 export const Header = () => {
-  const router = useRouter();
-  const currentPath = router.pathname;
   return (
     <div className="flex items-center justify-between border-b border-b-solid border-b-main-border">
       <div className="flex items-center justify-between">
