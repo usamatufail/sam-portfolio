@@ -15,9 +15,9 @@ const Link = ({ href, text }: LinkProps) => {
   return (
     <NextLink href={href}>
       <div
-        className={`px-[40px] py-[18px] ${styles['header-element']} ${
-          isActive ? styles['header-element-active'] : ''
-        }`}
+        className={`px-[40px] py-[18px] ${
+          styles['header-element']
+        } sticky z-10 ${isActive ? styles['header-element-active'] : ''}`}
       >
         {text}
       </div>

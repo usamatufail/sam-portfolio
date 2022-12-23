@@ -1,6 +1,5 @@
 import './styles/globals.css';
-import { Header } from './components';
-import Head from 'next/head';
+import { Footer, Header } from './components';
 
 export default function RootLayout({
   // Layouts must accept a children prop.
@@ -11,13 +10,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Head>
-        <title>Sam's Portfolio Website</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <body>
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );
