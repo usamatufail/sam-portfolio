@@ -1,5 +1,5 @@
 import './styles/globals.css';
-import { Footer, Header } from './components';
+import { Footer, Header } from '../components';
 
 export default function RootLayout({
   // Layouts must accept a children prop.
@@ -12,7 +12,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Header />
-        {children}
+        <div className="min-h-[calc(100vh_-_128px)]">{children}</div>
         <Footer />
       </body>
     </html>
