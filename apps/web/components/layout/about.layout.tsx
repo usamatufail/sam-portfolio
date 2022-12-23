@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { ReactNode, useState } from 'react';
-import { DiDatabase, DiGit, DiJsBadge, DiMarkdown } from 'react-icons/di';
+import { DiDatabase, DiGit, DiJsBadge, DiReact } from 'react-icons/di';
 import { useRouter } from 'next/router';
 
 interface MenuItemProps {
@@ -91,15 +91,15 @@ export function AboutLayout({ children }: { children: React.ReactNode }) {
           <div className="flex flex-col border-r-solid borer-b-solid border-b-main-border border-b py-[10px]">
             <MenuItem
               href="/about"
-              text="about-sam.md"
-              icon={<DiMarkdown color="#fff" />}
+              text="about-sam.jsx"
+              icon={<DiReact color="#61DBFB" />}
             />
             <MenuItem
               href="/about/experience"
               text="experience.sql"
               icon={<DiDatabase color="#DB7533" />}
             />
-            <MenuItem
+            {/*<MenuItem
               href="/about/education"
               text="education.js"
               icon={<DiJsBadge color="#E4D04B" />}
@@ -108,7 +108,7 @@ export function AboutLayout({ children }: { children: React.ReactNode }) {
               href="/about/hobbies"
               text="hobbies.git"
               icon={<DiGit color="#E44C30" />}
-            />
+            /> */}
           </div>
         )}
       </div>
