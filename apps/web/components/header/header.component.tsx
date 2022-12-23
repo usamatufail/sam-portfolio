@@ -1,8 +1,6 @@
-'use client';
-
 import NextLink from 'next/link';
 import styles from './header.module.scss';
-import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/router';
 
 interface LinkProps {
   href: string;
@@ -10,7 +8,7 @@ interface LinkProps {
 }
 
 const Link = ({ href, text }: LinkProps) => {
-  const pathname = usePathname();
+  const pathname = useRouter().pathname;
   const isActive = pathname === href;
   return (
     <NextLink href={href}>

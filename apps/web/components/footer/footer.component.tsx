@@ -1,5 +1,3 @@
-'use client';
-
 import NextLink from 'next/link';
 import styles from './footer.module.scss';
 import { usePathname } from 'next/navigation';
