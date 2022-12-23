@@ -9,7 +9,8 @@ interface LinkProps {
 
 const Link = ({ href, text }: LinkProps) => {
   const pathname = useRouter().pathname;
-  const isActive = pathname === href;
+  const isActive =
+    pathname === '/' ? pathname === href : href.includes(pathname);
   return (
     <NextLink href={href}>
       <div
