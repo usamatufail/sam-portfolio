@@ -11,13 +11,15 @@ interface MenuItemProps {
 
 const MenuItem = ({ href, text, icon }: MenuItemProps) => {
   const pathname = useRouter().pathname;
+  const isActive =
+    href === '/about' ? pathname === href : pathname.includes(href);
   return (
     <Link href={href}>
       <div className="flex gap-[10px] items-center pl-[35px] py-[5px] cursor-pointer">
         {icon}
         <span
           className={`hover:text-white transition-all ${
-            href === pathname ? 'text-white' : ''
+            isActive ? 'text-white' : ''
           }`}
         >
           {text}
@@ -77,7 +79,7 @@ const MenuHeading = ({
 export function AboutLayout({ children }: { children: React.ReactNode }) {
   const [menu1, setMenu1] = useState(true);
   return (
-    <div className="grid grid-cols-[235px_auto] h-[calc(100vh_-_128px)]">
+    <div className="grid grid-cols-[235px_auto] h-[calc(100vh_-_128px)] overflow-auto">
       {/* Sidebar */}
       <div className="border-r border-r-solid border-r-main-border">
         {/* Sidebar Heading 1 */}
