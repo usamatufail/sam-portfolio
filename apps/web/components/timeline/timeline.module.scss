@@ -91,6 +91,7 @@
   background: white;
   border-radius: 999px;
   border: 3px solid rgba(23, 85, 83, 0.7);
+  transition: all 0.2s ease-in-out;
 }
 
 /* Timeline dot active  */
@@ -106,10 +107,10 @@
 
 /* setting dot to the left if the card is odd */
 .card:nth-child(odd) > .info > .title::before {
-  left: -45px;
+  left: -49px;
 }
 
 /* setting dot to the right if the card is odd */
 .card:nth-child(even) > .info > .title::before {
-  right: -45px;
+  right: -49px;
 }
