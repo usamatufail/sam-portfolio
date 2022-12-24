@@ -1,8 +1,10 @@
-import { Footer, Header } from '..';
 import Head from 'next/head';
-import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
+import { Animated, Footer, Header } from '..';
 
 export function RootLayout({ children }: { children: React.ReactNode }) {
+  const pathname = useRouter().pathname;
+  const isAbout = pathname.includes('/about/');
   return (
     <div>
       <Head>
@@ -12,18 +14,7 @@ export function RootLayout({ children }: { children: React.ReactNode }) {
       <main>
         <Header />
         <div className="min-h-[calc(100vh_-_128px)] overflow-hidden">
-          <motion.div
-            initial={{ x: 300, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: 300, opacity: 0 }}
-            transition={{
-              type: 'spring',
-              stiffness: 260,
-              damping: 20,
-            }}
-          >
-            {children}
-          </motion.div>
+          {isAbout ? children : <Animated>{children}</Animated>}
         </div>
         <Footer />
       </main>

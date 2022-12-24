@@ -29,7 +29,7 @@ export const experience = [
     title: 'Senior React.js Developer',
     description: `As a web developer at AMF Media’s influencer marketing division, I have had the opportunity to work on a variety of projects for leading brands in the fashion, beauty, and lifestyle industries. My responsibilities have included designing and building websites, troubleshooting technical issues, and working with the influencer marketing team to ensure that our online campaigns are optimized for success.\n\nI have gained valuable experience in web development through my work at AMF Media, as well as a deep understanding of the influencer marketing industry and the importance of building strong relationships with clients and influencers.\n\nI have been fortunate to work with a talented and supportive team at AMF Media and have learned a great deal from my colleagues.`,
     organization: 'AMF Media',
-    image: '/amf-media.png',
+    image: '/work/amf-media.png',
     activeKey: 3,
     duration: '2020-2022',
   },

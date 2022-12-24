@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { ReactNode, useState } from 'react';
 import { DiDatabase, DiGit, DiJsBadge, DiReact } from 'react-icons/di';
 import { useRouter } from 'next/router';
+import { Animated } from '..';
 
 interface MenuItemProps {
   href: string;
@@ -92,7 +93,7 @@ export function AboutLayout({ children }: { children: React.ReactNode }) {
         {menu1 && (
           <div className="flex flex-col border-r-solid borer-b-solid border-b-main-border border-b py-[10px]">
             <MenuItem
-              href="/about"
+              href="/about/about-me"
               text="about-sam.jsx"
               icon={<DiReact color="#61DBFB" />}
             />
@@ -114,7 +115,9 @@ export function AboutLayout({ children }: { children: React.ReactNode }) {
           </div>
         )}
       </div>
-      <div>{children}</div>
+      <div className="overflow-hidden">
+        <Animated>{children}</Animated>
+      </div>
     </div>
   );
 }

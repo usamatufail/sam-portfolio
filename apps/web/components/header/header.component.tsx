@@ -12,7 +12,7 @@ const Link = ({ href, text }: LinkProps) => {
   const isActive = href === '/' ? pathname === href : pathname.includes(href);
 
   return (
-    <NextLink href={href}>
+    <NextLink href={href === '/about' ? '/about/about-me' : href}>
       <div
         className={`px-[40px] py-[18px] ${
           styles['header-element']
