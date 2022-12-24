@@ -38,7 +38,7 @@ export const Timeline = ({ data, setActiveKey, activeKey }: TimelineProps) => {
                   />
 
                   <div className="flex flex-col gap-[1px]">
-                    <h3>{data.title}</h3>
+                    <h3 className="mb-[5px]">{data.title}</h3>
                     <h4 className="text-white text-[12px]">
                       {data.organization}
                     </h4>

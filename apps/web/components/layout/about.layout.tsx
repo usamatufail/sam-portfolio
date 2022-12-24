@@ -102,12 +102,12 @@ export function AboutLayout({ children }: { children: React.ReactNode }) {
               text="experience.sql"
               icon={<DiDatabase color="#DB7533" />}
             />
-            {/*<MenuItem
+            <MenuItem
               href="/about/education"
               text="education.js"
               icon={<DiJsBadge color="#E4D04B" />}
             />
-            <MenuItem
+            {/*<MenuItem
               href="/about/hobbies"
               text="hobbies.git"
               icon={<DiGit color="#E44C30" />}
