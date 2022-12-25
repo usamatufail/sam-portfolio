@@ -29,7 +29,7 @@ export const Header = () => {
     <div className="flex items-center justify-between border-b border-b-solid border-b-main-border">
       <div className="flex items-center justify-between">
         <NextLink href="/">
-          <div className="px-[22px] py-[18px] w-[300px] cursor-pointer">
+          <div className="px-[22px] py-[18px] w-[250px] cursor-pointer">
             sam-tufail
           </div>
         </NextLink>

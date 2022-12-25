@@ -80,7 +80,7 @@ const MenuHeading = ({
 export function AboutLayout({ children }: { children: React.ReactNode }) {
   const [menu1, setMenu1] = useState(true);
   return (
-    <div className="grid grid-cols-[235px_auto] h-[calc(100vh_-_128px)] overflow-auto">
+    <div className="grid grid-cols-[250px_auto] h-[calc(100vh_-_128px)] overflow-auto">
       {/* Sidebar */}
       <div className="border-r border-r-solid border-r-main-border">
         {/* Sidebar Heading 1 */}
