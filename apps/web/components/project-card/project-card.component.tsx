@@ -26,7 +26,7 @@ export const ProjectCard = ({
         <Image
           src={src}
           fill
-          alt="Imagem do projeto"
+          alt="Project Representation"
           className={styles['img-project']}
         />
       </div>
@@ -34,15 +34,17 @@ export const ProjectCard = ({
         <h2 className={styles['title-project']}>{name}</h2>
         <p className="mb-[10px]">{description}</p>
         <div className={styles['technologies-container']}>
-          {technologies.map(tech => (
-            <span className={styles['span-technologies']}>{tech}</span>
+          {technologies.map((tech, i) => (
+            <span key={i} className={styles['span-technologies']}>
+              {tech}
+            </span>
           ))}
         </div>
         <div className={styles['links-container']}>
           {repository ? (
             <a
               href={repository}
-              title="Github"
+              title="Repository"
               target="_blank"
               rel="noreferrer"
             >
@@ -52,7 +54,7 @@ export const ProjectCard = ({
           {site ? (
             <a
               href={site}
-              title="Ver aplicação"
+              title="View Project"
               target="_blank"
               rel="noreferrer"
             >
