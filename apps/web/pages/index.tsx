@@ -1,6 +1,6 @@
-import { RootLayout } from 'components';
+import { Code, RootLayout } from 'components';
+import { homepage } from 'mocks';
 import type { NextPage } from 'next';
-import Image from 'next/image';
 
 const Home: NextPage = () => {
   return (
@@ -10,9 +10,9 @@ const Home: NextPage = () => {
         <div className="flex items-center justify-end">
           <div>
             <p className="text-[#E5E9F0] text-[18px]">Hi all, I am</p>
-            <h1 className="text-[#E5E9F0] text-[62px]">Sam Tufail</h1>
+            <h1 className="text-[#E5E9F0] text-[62px]">{homepage.name}</h1>
             <h2 className="text-[#4D5BCE] text-[32px] mb-[80px]">
-              {'>'} Full Stack developer
+              {'>'} {homepage.profession}
             </h2>
             <p>{'//'} This project is built using TurboRepo (Monorepo)</p>
             <p>{'//'} you can also see this project on my Github profile</p>
@@ -20,14 +20,8 @@ const Home: NextPage = () => {
               <span className="text-[#4D5BCE]">const</span>{' '}
               <span className="text-[#43D9AD]">githubLink</span>{' '}
               <span className="text-white">=</span>{' '}
-              <a
-                target="_blank"
-                rel="noreferrer"
-                href="https://github.com/usamatufail"
-              >
-                <span className="text-[#e99287]">
-                  https://github.com/usamatufail
-                </span>
+              <a target="_blank" rel="noreferrer" href={homepage.githubLink}>
+                <span className="text-[#e99287]">{homepage.githubLink}</span>
               </a>
             </div>
           </div>
@@ -67,7 +61,7 @@ const Home: NextPage = () => {
             }}
           >
             <div className="w-full h-full flex items-center">
-              <Image src="/code.png" alt="code-sample" fill />
+              <Code code={homepage.code} />
             </div>
           </div>
         </div>
