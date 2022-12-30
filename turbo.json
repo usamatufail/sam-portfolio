@@ -11,5 +11,6 @@
     "dev": {
       "cache": false
     }
-  }
+  },
+  "globalDependencies": ["$ABSTRACT_KEY", "$GOOGLE_CLIENT_EMAIL", "$GOOGLE_SERVICE_PRIVATE_KEY", "$SHEET_ID", "$SPREADSHEET_ID"]
 }

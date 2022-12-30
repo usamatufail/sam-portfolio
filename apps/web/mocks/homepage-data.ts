@@ -3,7 +3,6 @@ export const homepage = {
   profession: 'Full Stack Developer',
   githubLink: 'https://github.com/usamatufail',
   code: `
-  import React from 'react';
 import { Pre, Line, LineNo, LineContent } from './styles';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import theme from 'prism-react-renderer/themes/nightOwl';

@@ -11,6 +11,10 @@ export const Pre = styled.pre`
     line-height: 1.3em;
     height: 1.3em;
   }
+
+  & .token.string {
+    white-space: pre-wrap;
+  }
 `;
 
 export const Line = styled.div`

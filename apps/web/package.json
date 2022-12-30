@@ -6,7 +6,14 @@
     "start": "next start"
   },
   "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
+    "axios": "^1.2.2",
+    "dayjs": "^1.11.7",
+    "formik": "^2.2.9",
     "framer-motion": "^8.0.2",
+    "google-spreadsheet": "^3.3.0",
+    "http-status": "^1.5.3",
+    "lodash": "^4.17.21",
     "next": "latest",
     "prism-react-renderer": "^1.3.5",
     "prop-types": "^15.8.1",
@@ -15,12 +22,16 @@
     "react-icons": "^4.7.1",
     "react-is": "^18.2.0",
     "react-lottie-player": "^1.5.4",
+    "react-spinners": "^0.13.7",
     "sass": "^1.57.1",
     "styled-components": "^5.3.6",
-    "ui": "workspace:*"
+    "ui": "workspace:*",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
+    "@types/google-spreadsheet": "^3.3.0",
+    "@types/lodash": "^4.14.191",
     "@types/node": "18.11.3",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",

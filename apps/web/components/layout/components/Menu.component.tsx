@@ -26,6 +26,7 @@ export const Menu = ({
           {items.map(({ href, text, icon, isOutsideLink }) => {
             return (
               <MenuItem
+                key={href}
                 href={href}
                 text={text}
                 icon={icon}
