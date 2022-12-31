@@ -49,8 +49,8 @@ export const projects = [
     name: 'Covid-19 Tracker',
     description: 'Covid 19 Tracker built in a bootcamp',
     src: 'https://usamatufail.github.io/images/covid-tracker.gif',
-    repository: 'https://github.com/thiagodanobrega/frontend-online-store',
-    site: 'https://frontend-online-store-thiagodanobrega.vercel.app/',
+    repository: 'https://github.com/usamatufail/covid-19-tracker',
+    site: 'https://covid-19-tracker-usamatufail.netlify.app/',
     technologies: ['React', 'Redux', 'CSS3', 'HTML5', 'ES6'],
   },
   {
