@@ -2,8 +2,13 @@
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**"]
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "dist/**",
+        ".next/**"
+      ]
     },
     "lint": {
       "outputs": []
@@ -12,5 +17,12 @@
       "cache": false
     }
   },
-  "globalDependencies": ["$ABSTRACT_KEY", "$GOOGLE_CLIENT_EMAIL", "$GOOGLE_SERVICE_PRIVATE_KEY", "$SHEET_ID", "$SPREADSHEET_ID"]
+  "globalDependencies": [],
+  "globalEnv": [
+    "ABSTRACT_KEY",
+    "GOOGLE_CLIENT_EMAIL",
+    "GOOGLE_SERVICE_PRIVATE_KEY",
+    "SHEET_ID",
+    "SPREADSHEET_ID"
+  ]
 }
