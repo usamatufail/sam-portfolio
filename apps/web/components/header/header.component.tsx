@@ -1,7 +1,6 @@
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import Hamburger from 'hamburger-react';
-import { useMediaQuery } from 'react-responsive';
 import { useState } from 'react';
 
 interface LinkProps {
@@ -29,7 +28,7 @@ const MobileHeader = () => {
   const [isOpen, setOpen] = useState(false);
 
   return (
-    <div className="border-b-solid flex items-center justify-between border-b border-b-main-border">
+    <div className="border-b-solid flex items-center justify-between border-b border-b-main-border md:hidden">
       <NextLink href="/">
         <div className="w-[250px] cursor-pointer px-[22px] py-[18px]">
           sam-tufail
@@ -52,7 +51,7 @@ const MobileHeader = () => {
 
 export const DesktopHeader = () => {
   return (
-    <div className="border-b-solid flex items-center justify-between border-b border-b-main-border">
+    <div className="border-b-solid hidden items-center justify-between border-b border-b-main-border md:flex">
       <div className="flex items-center justify-between">
         <NextLink href="/">
           <div className="w-[250px] cursor-pointer px-[22px] py-[18px]">
@@ -73,9 +72,10 @@ export const DesktopHeader = () => {
 };
 
 export const Header = () => {
-  const isDesktopOrLaptop = useMediaQuery({
-    query: '(min-width: 768px)',
-  });
-
-  return isDesktopOrLaptop ? <DesktopHeader /> : <MobileHeader />;
+  return (
+    <div>
+      <DesktopHeader />
+      <MobileHeader />
+    </div>
+  );
 };
