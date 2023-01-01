@@ -26,9 +26,9 @@ const Link = ({ href, text }: LinkProps) => {
 
 export const Footer = () => {
   return (
-    <div className="flex items-center justify-between border-t border-t-solid border-t-main-border">
-      <div className="flex items-center justify-between">
-        <div className="px-[22px] py-[18px] cursor-pointer">find me in:</div>
+    <div className="border-y-solid grid grid-cols-1 items-center justify-between border-y border-y-main-border md:flex md:grid-cols-[unset]">
+      <div className="border-b-solid flex items-center justify-between border-b border-b-main-border">
+        <div className="cursor-pointer px-[22px] py-[18px]">find me in:</div>
         <div className="flex items-center justify-between">
           <Link
             text={
@@ -69,7 +69,7 @@ export const Footer = () => {
       <div>
         <Link
           text={
-            <div className="flex items-center gap-[12px]">
+            <div className="md:justify-[unset] flex items-center justify-center gap-[12px]">
               <p>@usamatufail</p>
               <div>
                 <svg

@@ -29,10 +29,13 @@ importers:
       formik: ^2.2.9
       framer-motion: ^8.0.2
       google-spreadsheet: ^3.3.0
+      hamburger-react: ^2.5.0
       http-status: ^1.5.3
       lodash: ^4.17.21
       next: latest
       postcss: ^8.4.18
+      prettier: ^2.8.1
+      prettier-plugin-tailwindcss: ^0.2.1
       prism-react-renderer: ^1.3.5
       prop-types: ^15.8.1
       react: 18.2.0
@@ -40,6 +43,7 @@ importers:
       react-icons: ^4.7.1
       react-is: ^18.2.0
       react-lottie-player: ^1.5.4
+      react-responsive: ^9.0.2
       react-spinners: ^0.13.7
       sass: ^1.57.1
       styled-components: ^5.3.6
@@ -55,9 +59,11 @@ importers:
       formik: 2.2.9_react@18.2.0
       framer-motion: 8.0.2_biqbaboplfbrettd7655fr4n2y
       google-spreadsheet: 3.3.0
+      hamburger-react: 2.5.0_react@18.2.0
       http-status: 1.5.3
       lodash: 4.17.21
       next: 13.1.1_fuzycnceajikl2b5me3wqzks2m
+      prettier-plugin-tailwindcss: 0.2.1_prettier@2.8.1
       prism-react-renderer: 1.3.5_react@18.2.0
       prop-types: 15.8.1
       react: 18.2.0
@@ -65,6 +71,7 @@ importers:
       react-icons: 4.7.1_react@18.2.0
       react-is: 18.2.0
       react-lottie-player: 1.5.4_react@18.2.0
+      react-responsive: 9.0.2_react@18.2.0
       react-spinners: 0.13.7_biqbaboplfbrettd7655fr4n2y
       sass: 1.57.1
       styled-components: 5.3.6_7i5myeigehqah43i5u7wbekgba
@@ -81,6 +88,7 @@ importers:
       autoprefixer: 10.4.13_postcss@8.4.20
       eslint-config-custom: link:../../packages/eslint-config-custom
       postcss: 8.4.20
+      prettier: 2.8.1
       tailwindcss: 3.2.4_postcss@8.4.20
       tsconfig: link:../../packages/tsconfig
       typescript: 4.8.4
@@ -1166,6 +1174,10 @@ packages:
     engines: {node: '>=4'}
     dev: false
 
+  /css-mediaquery/0.1.2:
+    resolution: {integrity: sha512-COtn4EROW5dBGlE/4PiKnh6rZpAPxDeFLaEEwt4i10jpDMFt2EhQGS79QmmrO+iKCHv0PU/HrOWEhijFd1x99Q==}
+    dev: false
+
   /css-to-react-native/3.0.0:
     resolution: {integrity: sha512-Ro1yETZA813eoyUp2GDBhG2j+YggidUmzO1/v9eYBKR2EHVEniE2MI/NqpTQ954BMpTPZFsGNPm46qFB9dpaPQ==}
     dependencies:
@@ -1990,6 +2002,14 @@ packages:
       - supports-color
     dev: false
 
+  /hamburger-react/2.5.0_react@18.2.0:
+    resolution: {integrity: sha512-5GSXe+ucxTPJ0SkhIsPQ/PRDweZPIKya1lfahAuExx31SdheeUA4uOPfQIAirbKona8hvo79VDr5LJQzPXsdpw==}
+    peerDependencies:
+      react: ^16.8 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
+    dev: false
+
   /has-bigints/1.0.2:
     resolution: {integrity: sha512-tSvCKtBr9lkF0Ex0aQiP9N+OpV4zi2r/Nee5VkRDbaqv35RLYMzbwQfFSZZH0kR+Rd6302UJZ2p/bJCEoR3VoQ==}
     dev: false
@@ -2048,6 +2068,10 @@ packages:
       debug: 4.3.4
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /hyphenate-style-name/1.0.4:
+    resolution: {integrity: sha512-ygGZLjmXfPHj+ZWh6LwbC37l43MhfztxetbFCoYTM2VjkIUpeHgSNn7QIyVFj7YQ1Wl9Cbw5sholVJPzWvC2MQ==}
     dev: false
 
   /ignore/4.0.6:
@@ -2322,6 +2346,12 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       yallist: 4.0.0
+
+  /matchmediaquery/0.3.1:
+    resolution: {integrity: sha512-Hlk20WQHRIm9EE9luN1kjRjYXAQToHOIAHPJn9buxBwuhfTHoKUcX+lXBbxc85DVQfXYbEQ4HcwQdd128E3qHQ==}
+    dependencies:
+      css-mediaquery: 0.1.2
+    dev: false
 
   /merge2/1.4.1:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
@@ -2646,11 +2676,19 @@ packages:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
 
+  /prettier-plugin-tailwindcss/0.2.1_prettier@2.8.1:
+    resolution: {integrity: sha512-aIO8IguumORyRsmT+E7JfJ3A9FEoyhqZR7Au7TBOege3VZkgMvHJMkufeYp4zjnDK2iq4ktkvGMNOQR9T8lisQ==}
+    engines: {node: '>=12.17.0'}
+    peerDependencies:
+      prettier: '>=2.2.0'
+    dependencies:
+      prettier: 2.8.1
+    dev: false
+
   /prettier/2.8.1:
     resolution: {integrity: sha512-lqGoSJBQNJidqCHE80vqZJHWHRFoNYsSpP9AjFhlhi9ODCJA541svILes/+/1GM3VaL/abZi7cpFzOpdR9UPKg==}
     engines: {node: '>=10.13.0'}
     hasBin: true
-    dev: true
 
   /prism-react-renderer/1.3.5_react@18.2.0:
     resolution: {integrity: sha512-IJ+MSwBWKG+SM3b2SUfdrhC+gu01QkV2KmRQgREThBfSQRoufqRfxfHUxpG1WcaFjP+kojcFyO9Qqtpgt3qLCg==}
@@ -2731,6 +2769,19 @@ packages:
       lottie-web: 5.10.0
       react: 18.2.0
       rfdc: 1.3.0
+    dev: false
+
+  /react-responsive/9.0.2_react@18.2.0:
+    resolution: {integrity: sha512-+4CCab7z8G8glgJoRjAwocsgsv6VA2w7JPxFWHRc7kvz8mec1/K5LutNC2MG28Mn8mu6+bu04XZxHv5gyfT7xQ==}
+    engines: {node: '>=0.10'}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      hyphenate-style-name: 1.0.4
+      matchmediaquery: 0.3.1
+      prop-types: 15.8.1
+      react: 18.2.0
+      shallow-equal: 1.2.1
     dev: false
 
   /react-spinners/0.13.7_biqbaboplfbrettd7655fr4n2y:
@@ -2860,6 +2911,10 @@ packages:
     hasBin: true
     dependencies:
       lru-cache: 6.0.0
+
+  /shallow-equal/1.2.1:
+    resolution: {integrity: sha512-S4vJDjHHMBaiZuT9NPb616CSmLf618jawtv3sufLl6ivK8WocjAo58cXwbRV1cgqxH0Qbv+iUt6m05eqEa2IRA==}
+    dev: false
 
   /shallowequal/1.1.0:
     resolution: {integrity: sha512-y0m1JoUZSlPAjXVtPPW70aZWfIL/dSP7AFkRnniLCrK/8MDKog3TySTBmckD+RObVxH0v4Tox67+F14PdED2oQ==}
