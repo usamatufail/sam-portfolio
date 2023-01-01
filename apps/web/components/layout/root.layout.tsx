@@ -13,7 +13,7 @@ export function RootLayout({ children }: { children: React.ReactNode }) {
       </Head>
       <main>
         <Header />
-        <div className="min-h-[calc(100vh_-_128px)] overflow-hidden">
+        <div className="min-h-[calc(100vh_-_130px)] overflow-hidden">
           {isAbout ? children : <Animated>{children}</Animated>}
         </div>
         <Footer />

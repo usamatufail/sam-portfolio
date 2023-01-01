@@ -52,7 +52,7 @@ const code = ({
 
 const ContactForm = () => {
   return (
-    <div className="w-[450px] mt-[120px] flex flex-col gap-[20px]">
+    <div className="mt-[120px] flex w-[450px] flex-col gap-[20px]">
       {inputs.map(input => {
         return (
           <Input
@@ -67,7 +67,7 @@ const ContactForm = () => {
       })}
       <button
         type="submit"
-        className="transition-all text-white bg-[#1C2B3A] hover:bg-[#293e52] focus:outline-none outline-none focus:ring focus:ring-[#293e52] font-medium rounded-[8px] text-[14px] px-5 py-2.5 mr-2 mb-2"
+        className="mr-2 mb-2 rounded-[8px] bg-[#1C2B3A] px-5 py-2.5 text-[14px] font-medium text-white outline-none transition-all hover:bg-[#293e52] focus:outline-none focus:ring focus:ring-[#293e52]"
       >
         submit-message
       </button>
@@ -93,9 +93,9 @@ export const Thanks = ({
   ) => void;
 }) => {
   return (
-    <div className="flex items-start justify-center border-r-solid border-r-main-border border-r">
-      <div className="mt-[150px] overflow-auto text-center max-w-[385px]">
-        <h1 className="text-[#fff] text-[26px]">Thank you! 🤘</h1>
+    <div className="border-r-solid flex items-start justify-center border-r border-r-main-border">
+      <div className="mt-[150px] max-w-[385px] overflow-auto text-center">
+        <h1 className="text-[26px] text-[#fff]">Thank you! 🤘</h1>
         <p className="mt-[10px]">
           Your message has been accepted. You will recieve answer really soon!
         </p>
@@ -105,7 +105,7 @@ export const Thanks = ({
             setMessageSent(false);
             resetForm();
           }}
-          className="mt-[40px] transition-all text-white bg-[#1C2B3A] hover:bg-[#293e52] focus:outline-none outline-none focus:ring focus:ring-[#293e52] font-medium rounded-[8px] text-[14px] px-5 py-2.5 mr-2 mb-2"
+          className="mt-[40px] mr-2 mb-2 rounded-[8px] bg-[#1C2B3A] px-5 py-2.5 text-[14px] font-medium text-white outline-none transition-all hover:bg-[#293e52] focus:outline-none focus:ring focus:ring-[#293e52]"
         >
           send-new-message
         </button>
@@ -142,16 +142,16 @@ export default function Contact() {
           {({ values: { name, email, message }, resetForm }) => {
             return (
               <Form autoComplete="off">
-                <div className="grid grid-cols-2 min-h-[calc(100vh_-_128px)]">
+                <div className="grid min-h-[calc(100vh_-_130px)] grid-cols-2">
                   {/* Contact Form + Thanks */}
                   <>
                     {!messageSent && !loading ? (
-                      <div className="flex items-start justify-center border-r-solid border-r-main-border border-r">
+                      <div className="border-r-solid flex items-start justify-center border-r border-r-main-border">
                         <ContactForm />
                       </div>
                     ) : loading ? (
-                      <div className="flex items-start justify-center border-r-solid border-r-main-border border-r">
-                        <div className="mt-[150px] w-[100%] flex justify-center">
+                      <div className="border-r-solid flex items-start justify-center border-r border-r-main-border">
+                        <div className="mt-[150px] flex w-[100%] justify-center">
                           <PacmanLoader color="#82AAFF" />
                         </div>
                       </div>
@@ -163,7 +163,7 @@ export default function Contact() {
                     )}
                   </>
                   {/* Code */}
-                  <div className="flex items-start justify-center border-r-solid border-r-main-border border-r">
+                  <div className="border-r-solid flex items-start justify-center border-r border-r-main-border">
                     <div className="mt-[150px] overflow-auto">
                       <Code code={code({ name, email, message })} />
                     </div>

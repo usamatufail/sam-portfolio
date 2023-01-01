@@ -5,26 +5,26 @@ import type { NextPage } from 'next';
 const Home: NextPage = () => {
   return (
     <RootLayout>
-      <div className="min-h-[calc(100vh_-_128px)] grid grid-cols-1 md:grid-cols-2 gap-[60px] md:gap-[130px]">
+      <div className="grid min-h-[calc(100vh_-_130px)] grid-cols-1 gap-[60px] md:grid-cols-2 md:gap-[130px]">
         {/* Intro */}
-        <div className="flex items-center justify-end mt-[25px] px-[20px] md:mt-[25px] md:px-[20px]">
+        <div className="mt-[25px] flex items-center justify-end px-[20px] md:mt-[25px] md:px-[20px]">
           <div className="max-w-[600px]">
-            <p className="text-[#E5E9F0] text-[18px]">Hi all, I am</p>
-            <h1 className="text-[#E5E9F0] text-[32px] md:text-[62px]">
+            <p className="text-[18px] text-[#E5E9F0]">Hi all, I am</p>
+            <h1 className="text-[32px] text-[#E5E9F0] md:text-[62px]">
               {homepage.name}
             </h1>
-            <h2 className="text-[#4D5BCE] text-[26px] md:text-[32px] mb-[20px] md:mb-[80px]">
+            <h2 className="mb-[20px] text-[26px] text-[#4D5BCE] md:mb-[80px] md:text-[32px]">
               {'>'} {homepage.profession}
             </h2>
-            <p className="md:text-[16px] text-[12px]">
+            <p className="text-[12px] md:text-[16px]">
               {'//'} This project is built using TurboRepo (Monorepo),{' '}
               <br className="hidden md:inline" /> Next.js 13, React.js, and
               Tailwind CSS
             </p>
-            <p className="md:text-[16px] text-[12px]">
+            <p className="text-[12px] md:text-[16px]">
               {'//'} you can also see this project on my Github profile
             </p>
-            <div className="md:text-[16px] text-[12px]">
+            <div className="text-[12px] md:text-[16px]">
               <span className="text-[#4D5BCE]">const</span>{' '}
               <span className="text-[#43D9AD]">githubLink</span>{' '}
               <span className="text-white">=</span>{' '}
@@ -35,7 +35,7 @@ const Home: NextPage = () => {
           </div>
         </div>
         {/* Board */}
-        <div className="flex items-center justify-start px-[22px] mb-[20px] md:px-[0px] md:mb-[0px]">
+        <div className="mb-[20px] flex items-center justify-start px-[22px] md:mb-[0px] md:px-[0px]">
           <div
             className="hidden md:block"
             style={{
@@ -59,7 +59,7 @@ const Home: NextPage = () => {
             }}
           />
           <div
-            className="rounded-[8px] h-[550px] w-[100%] md:w-[510px] static md:absolute"
+            className="static h-[550px] w-[100%] rounded-[8px] md:absolute md:w-[510px]"
             style={{
               background:
                 'linear-gradient(150.26deg, rgba(23, 85, 83, 0.7) 1.7%, rgba(67, 217, 173, 0.091) 81.82%)',
@@ -69,7 +69,7 @@ const Home: NextPage = () => {
               zIndex: 8,
             }}
           >
-            <div className="w-full h-full flex items-center">
+            <div className="flex h-full w-full items-center">
               <Code code={homepage.code} />
             </div>
           </div>
