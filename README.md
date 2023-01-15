@@ -9,8 +9,9 @@
 
 ## Stay in touch
 
-- Author - [Usama Tufail (Sam)](https://miansamusama@gmail.com)
+- Author - [Usama Tufail (Sam T.)](https://miansamusama@gmail.com)
 - Twitter - [@usamatufail726](https://twitter.com/usamatufail726)
+- Facebook - [@samtufail007](https://facebook.com/samtufail007)
 
 
 # Turborepo starter
