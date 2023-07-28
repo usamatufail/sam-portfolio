@@ -12,7 +12,7 @@ export default function AboutPage() {
               <h1 className="text-[62px] text-white">About Sam</h1>
               <p className="text-[18px] max-w-[450px]">
                 Hi there, Sam is a full-stack web and mobile application
-                developer with more than 4 years of work experience in this
+                developer with more than 6 years of work experience in this
                 field. As a programmer, Sam is a skilled and knowledgeable
                 individual with a passion for creating and improving softwares
                 and solving problems. Sam is highly analytical, able to break
