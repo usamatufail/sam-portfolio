@@ -1,16 +1,24 @@
 'use client';
 
-import { useActionState } from 'react';
+import { useActionState, useState } from 'react';
 import type { Settings } from '@/db/schema';
 import { saveSettings } from '@/lib/actions/content';
 import type { ActionState } from '@/lib/actions/types';
 import { formatParagraphs } from '@/lib/parse';
-import { Field, SaveBar, Section, TextArea, Toggle } from './ui';
+import { AVAILABILITY_STATES } from '@/db/schema';
+import { Field, SaveBar, Section, Select, TextArea, Toggle } from './ui';
 
 const PARAGRAPH_HINT = 'One paragraph per block, separated by a blank line.';
 
+const FIELD_BY_STATE = {
+  available: 'availabilityAvailable',
+  limited: 'availabilityLimited',
+  unavailable: 'availabilityUnavailable',
+} as const;
+
 export function SettingsForm({ settings }: { settings: Settings }) {
-  const [state, action] = useActionState<ActionState, FormData>(saveSettings, null);
+  const [formState, action] = useActionState<ActionState, FormData>(saveSettings, null);
+  const [state, setState] = useState<Settings['availabilityState']>(settings.availabilityState);
 
   return (
     <form action={action} className="flex flex-col gap-6">
@@ -99,16 +107,61 @@ export function SettingsForm({ settings }: { settings: Settings }) {
         <TextArea label="intro" name="contactIntro" defaultValue={settings.contactIntro} rows={3} />
       </Section>
 
-      <Section title="Footer and palette">
-        <Field label="footer left" name="footerLeft" defaultValue={settings.footerLeft} />
-        <Field label="footer right" name="footerRight" defaultValue={settings.footerRight} />
-        <div className="sm:col-span-2">
-          <Field
-            label="palette placeholder"
-            name="palettePlaceholder"
-            defaultValue={settings.palettePlaceholder}
-          />
+      <Section
+        title="Availability"
+        description="The only place the site states whether you are taking work. It shows as the footer badge, and replaces {availability} anywhere it appears in a command palette answer."
+        columns={1}
+      >
+        <Select
+          label="current state"
+          name="availabilityState"
+          defaultValue={settings.availabilityState}
+          onChange={(value) => {
+            const next = AVAILABILITY_STATES.find((candidate) => candidate === value);
+            if (next) setState(next);
+          }}
+          options={[
+            { value: 'available', label: 'Available — taking work' },
+            { value: 'limited', label: 'Limited — mostly booked' },
+            { value: 'unavailable', label: 'Unavailable — not taking work' },
+          ]}
+          hint="Only the message for the selected state is shown on the site."
+        />
+
+        <div className="flex flex-col gap-4">
+          {AVAILABILITY_STATES.map((option) => (
+            <div
+              key={option}
+              className={
+                option === state ? '' : 'opacity-45 transition-opacity focus-within:opacity-100'
+              }
+            >
+              <Field
+                label={option === state ? `${option} — live now` : option}
+                name={FIELD_BY_STATE[option]}
+                defaultValue={settings[FIELD_BY_STATE[option]]}
+              />
+            </div>
+          ))}
         </div>
+
+        <p className="m-0 rounded-lg border border-rule bg-bg px-3 py-2.5 text-[13px] leading-[1.6] text-text-5">
+          Showing on the site now:{' '}
+          <span className="text-text">{settings[FIELD_BY_STATE[state]] || '—'}</span>
+          <span className="mt-1 block text-faint">
+            Written lowercase reads best: the badge shows it as-is, and it is capitalised
+            automatically when it opens a palette answer line.
+          </span>
+        </p>
+      </Section>
+
+      <Section title="Footer and palette" columns={1}>
+        <Field label="footer left" name="footerLeft" defaultValue={settings.footerLeft} />
+        <Field
+          label="palette placeholder"
+          name="palettePlaceholder"
+          defaultValue={settings.palettePlaceholder}
+        />
       </Section>
 
       <Section title="SEO" description="Feeds the <title>, meta description, Open Graph tags and the Person schema." columns={1}>
@@ -119,7 +172,7 @@ export function SettingsForm({ settings }: { settings: Settings }) {
         <TextArea label="og:description" name="ogDescription" defaultValue={settings.ogDescription} rows={3} />
       </Section>
 
-      <SaveBar state={state} />
+      <SaveBar state={formState} />
     </form>
   );
 }

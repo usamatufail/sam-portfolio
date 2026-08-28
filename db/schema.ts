@@ -9,6 +9,9 @@ import {
   uniqueIndex,
 } from 'drizzle-orm/pg-core';
 
+export const AVAILABILITY_STATES = ['available', 'limited', 'unavailable'] as const;
+export type AvailabilityState = (typeof AVAILABILITY_STATES)[number];
+
 /**
  * Singleton row (id = 1) holding every piece of standalone site copy:
  * identity, contact links, per-page headings and the SEO block.
@@ -65,8 +68,17 @@ export const settings = pgTable('settings', {
 
   // Footer + palette
   footerLeft: text('footer_left').notNull(),
-  footerRight: text('footer_right').notNull(),
   palettePlaceholder: text('palette_placeholder').notNull(),
+
+  /**
+   * The single source of truth for whether Sam is taking work. Rendered as the
+   * footer badge, and substituted into any command answer containing the
+   * {availability} token. Nothing else on the site may claim availability.
+   */
+  availabilityState: text('availability_state').$type<AvailabilityState>().notNull(),
+  availabilityAvailable: text('availability_available').notNull(),
+  availabilityLimited: text('availability_limited').notNull(),
+  availabilityUnavailable: text('availability_unavailable').notNull(),
 
   // SEO
   seoTitle: text('seo_title').notNull(),

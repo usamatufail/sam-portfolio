@@ -22,6 +22,11 @@
   --color-rule-link: oklch(0.33 0.006 250);
 
   /* Toptal blue (#25a9ef), lifted for legibility on the near-black background. */
+  /* Availability badge dots. Text always carries the meaning too. */
+  --color-status-available: oklch(0.74 0.16 152);
+  --color-status-limited: oklch(0.79 0.14 78);
+  --color-status-unavailable: oklch(0.6 0.008 250);
+
   --color-accent: oklch(0.74 0.135 243);
   --color-accent-40: oklch(0.74 0.135 243 / 0.4);
   --color-accent-50: oklch(0.74 0.135 243 / 0.5);

@@ -15,7 +15,7 @@ const SETTINGS = {
   heroHeadline: 'Usama Tufail, senior full-stack engineer, ten years of products that shipped.',
   heroParagraphs: [
     'Ten years shipping software, since 2016. I build product front-ends in React, Next.js and TypeScript, mobile apps in React Native, Chrome extensions used by thousands, and the Node, NestJS and PostgreSQL services behind them. Most of my work is the part nobody enjoys: migrations, hydration bugs, p95 latency, the last 10% that decides whether software feels good to use.',
-    'A Toptal Verified Expert in Engineering since 2022, and the engineer US startups call when a product has to get faster, cleaner or shipped by a date that will not move. Open to senior and lead roles, and to freelance engagements.',
+    'A Toptal Verified Expert in Engineering since 2022, and the engineer US startups call when a product has to get faster, cleaner or shipped by a date that will not move.',
   ],
   avatarUrl: '/images/sam-avatar-500.png',
   avatarAlt: 'Usama Tufail (Sam), senior full-stack engineer',
@@ -56,15 +56,20 @@ const SETTINGS = {
 
   contactTitle: 'Contact',
   contactIntro:
-    'I take senior front-end and full-stack work, new products, rescue missions, and migrations that have to ship without downtime. Email or WhatsApp reaches me fastest; I reply within a day.',
+    'Senior front-end and full-stack work: new products, rescue missions, and migrations that have to ship without downtime. Email or WhatsApp reaches me fastest; I reply within a day.',
 
   footerLeft: 'Remote · overlapping US and EU hours',
-  footerRight: '10 years · available for work',
   palettePlaceholder: 'Search: work, numbers, availability, email…',
+
+  // The only availability claim on the site. Everything else was scrubbed of it.
+  availabilityState: 'available' as const,
+  availabilityAvailable: 'available for work',
+  availabilityLimited: 'mostly booked — open to a conversation',
+  availabilityUnavailable: 'not taking new work right now',
 
   seoTitle: 'Usama Tufail (Sam), Senior Full-stack Engineer · React, Next.js, TypeScript',
   seoDescription:
-    'Usama Tufail (Sam), senior full-stack engineer. Ten years of shipped products across web, mobile and the services behind them. Toptal Verified Expert in Engineering, open to senior and lead roles.',
+    'Usama Tufail (Sam), senior full-stack engineer. Ten years of shipped products across web, mobile and the services behind them. Toptal Verified Expert in Engineering, working remotely with teams across the US and Europe.',
   seoKeywords:
     'Usama Tufail, Sam Tufail, senior full-stack engineer, React developer, Next.js developer, TypeScript, Node.js, NestJS, React Native, Chrome extension developer, Toptal Verified Expert, hire senior full-stack engineer remote',
   ogTitle: 'Usama Tufail (Sam), Senior Full-stack Engineer',
@@ -244,7 +249,7 @@ const COMMANDS = [
       'Usama Tufail, called Sam. Senior full-stack engineer, ten years in, working remotely with teams in the US and Europe.',
       'Toptal Verified Expert in Engineering since 2022. Master’s in Computer Science.',
       'Best used for product front-ends in React and Next.js, rescues of codebases that grew faster than their architecture, and performance work with numbers attached.',
-      'Open to senior and lead roles, and to freelance engagements.',
+      'Remote, UTC+5, with a working day that overlaps both US and European mornings.',
     ],
     sortOrder: 9,
   },
@@ -285,8 +290,8 @@ const COMMANDS = [
     value: null,
     answerTitle: 'availability',
     answerLines: [
-      'Available now, full time or fractional. Remote, UTC+5, with a working day that overlaps both US and European mornings.',
-      'I take senior front-end and full-stack work: new products, rescue missions, and migrations that have to ship without downtime.',
+      '{availability}. Remote, UTC+5, with a working day that overlaps both US and European mornings.',
+      'The work I take on is senior front-end and full-stack: new products, rescue missions, and migrations that have to ship without downtime.',
       'Engagements usually start with a short call, then a paid week so you can judge the work rather than the CV.',
     ],
     sortOrder: 12,

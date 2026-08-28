@@ -15,6 +15,20 @@
       "when": 1787957345695,
       "tag": "0001_keen_albert_cleary",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1787959978000,
+      "tag": "0002_happy_iron_monger",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1787959999017,
+      "tag": "0003_common_franklin_storm",
+      "breakpoints": true
     }
   ]
 }

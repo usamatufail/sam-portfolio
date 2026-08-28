@@ -1,11 +1,14 @@
+import { AvailabilityBadge } from '@/components/site/AvailabilityBadge';
 import { CommandPalette } from '@/components/site/CommandPalette';
 import { Header } from '@/components/site/Header';
 import { PageShell } from '@/components/site/PageShell';
 import { RevealRoot } from '@/components/site/RevealRoot';
+import { applyAvailabilityToken, availabilityMessage } from '@/lib/availability';
 import { getCommands, getSettings } from '@/lib/queries';
 
 export default async function SiteLayout({ children }: { children: React.ReactNode }) {
   const [settings, commands] = await Promise.all([getSettings(), getCommands()]);
+  const availability = availabilityMessage(settings);
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -15,7 +18,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
 
       <footer className="mx-auto flex w-full max-w-[720px] justify-between gap-4 px-[28px] pb-[44px] font-mono text-[12.5px] text-muted-2">
         <span>{settings.footerLeft}</span>
-        <span>{settings.footerRight}</span>
+        <AvailabilityBadge state={settings.availabilityState} message={availability} />
       </footer>
 
       <CommandPalette
@@ -27,7 +30,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
           kind: c.kind,
           value: c.value,
           answerTitle: c.answerTitle,
-          answerLines: c.answerLines,
+          answerLines: applyAvailabilityToken(c.answerLines, availability),
         }))}
         email={settings.email}
         placeholder={settings.palettePlaceholder}

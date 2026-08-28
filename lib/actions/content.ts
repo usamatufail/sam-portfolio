@@ -5,6 +5,7 @@ import { revalidatePath, revalidateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { db } from '@/db';
 import {
+  AVAILABILITY_STATES,
   COMMAND_KINDS,
   commands,
   education,
@@ -39,6 +40,10 @@ export async function saveSettings(_prev: ActionState, formData: FormData): Prom
 
   const email = str(formData.get('email'));
   if (!email.includes('@')) return fail('That email address does not look right.');
+
+  const rawState = str(formData.get('availabilityState'));
+  const availabilityState = AVAILABILITY_STATES.find((candidate) => candidate === rawState);
+  if (!availabilityState) return fail('Pick an availability state.');
 
   try {
     await db
@@ -85,8 +90,12 @@ export async function saveSettings(_prev: ActionState, formData: FormData): Prom
         contactIntro: str(formData.get('contactIntro')),
 
         footerLeft: str(formData.get('footerLeft')),
-        footerRight: str(formData.get('footerRight')),
         palettePlaceholder: str(formData.get('palettePlaceholder')),
+
+        availabilityState,
+        availabilityAvailable: str(formData.get('availabilityAvailable')),
+        availabilityLimited: str(formData.get('availabilityLimited')),
+        availabilityUnavailable: str(formData.get('availabilityUnavailable')),
 
         seoTitle: str(formData.get('seoTitle')),
         seoDescription: str(formData.get('seoDescription')),

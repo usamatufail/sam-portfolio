@@ -91,6 +91,21 @@ SHA-256'd first so length never leaks) and is throttled to 8 attempts per 15 min
 That throttle is per-instance, so on serverless it slows an attacker rather than stopping one —
 fine behind a long passcode, worth revisiting if the threat model changes.
 
+### Availability
+
+Whether Sam is taking work is stated in **exactly one place**: `availabilityState` in
+settings, rendered as the footer badge. The other copy was deliberately scrubbed of
+availability claims — the hero's closing sentence, the `whoami` palette answer, and the SEO
+description all used to assert it independently and would have gone stale.
+
+Three states (`available` / `limited` / `unavailable`), each with its own editable message.
+A command-palette answer line containing the `{availability}` token has it substituted at
+render time, capitalised when it starts the line — that is how the "Availability and how I
+work" answer stays in sync with the badge without restating it.
+
+If you add copy that mentions taking work, use the token or leave it to the badge. Two
+independent claims is the bug this exists to prevent.
+
 ### Design
 
 `design_handoff_portfolio/README.md` is the source of truth for colours, type scale, spacing
