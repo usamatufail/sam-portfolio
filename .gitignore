@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.neon
+
+# agent skills (re-installable via `npx skills add`)
+.agents
+skills-lock.json

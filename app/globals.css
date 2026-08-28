@@ -1,26 +1,82 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Design tokens from the handoff. Colours are authored in oklch(). */
+@theme {
+  --color-bg: oklch(0.145 0.004 250);
+  --color-panel: oklch(0.205 0.005 250);
+  --color-panel-hover: oklch(0.25 0.006 250);
+  --color-panel-rule: oklch(0.28 0.006 250);
+
+  --color-text: oklch(0.965 0.003 250);
+  --color-text-2: oklch(0.8 0.006 250);
+  --color-text-3: oklch(0.79 0.006 250);
+  --color-text-4: oklch(0.75 0.006 250);
+  --color-text-5: oklch(0.68 0.007 250);
+  --color-tech: oklch(0.62 0.008 250);
+  --color-muted: oklch(0.6 0.008 250);
+  --color-muted-2: oklch(0.58 0.008 250);
+  --color-faint: oklch(0.45 0.008 250);
+
+  --color-rule: oklch(0.29 0.006 250);
+  --color-rule-strong: oklch(0.31 0.006 250);
+  --color-rule-link: oklch(0.33 0.006 250);
+
+  /* Toptal blue (#25a9ef), lifted for legibility on the near-black background. */
+  --color-accent: oklch(0.74 0.135 243);
+  --color-accent-40: oklch(0.74 0.135 243 / 0.4);
+  --color-accent-50: oklch(0.74 0.135 243 / 0.5);
+
+  --font-sans: var(--font-manrope), system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+
+  --ease-site: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --animate-site-fade: siteFade 0.45s ease;
+  --animate-overlay-fade: siteFade 0.25s ease;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes siteFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ::selection {
+    background: oklch(0.74 0.135 243 / 0.22);
+  }
+}
+
+/* Scroll reveal. Elements start visible; only below-the-fold nodes are ever
+   hidden, and that happens from JS after first paint (see useReveal). */
+@media (prefers-reduced-motion: reduce) {
+  [data-anim] {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
 }
