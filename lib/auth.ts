@@ -50,7 +50,7 @@ export async function isAuthenticated(): Promise<boolean> {
 
 /**
  * The real access check. `proxy.ts` gives a fast redirect for page loads, but
- * every admin page and every server action calls this too — a proxy check
+ * every admin page and every server action calls this too, because a proxy check
  * alone is not an authorisation boundary.
  */
 export async function requireAdmin(): Promise<void> {

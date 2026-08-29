@@ -160,7 +160,7 @@ export function CommandPalette({
           type="button"
           onClick={() => setOpen(true)}
           aria-label="Open command palette"
-          className="cursor-pointer appearance-none border-none bg-transparent p-0 font-mono text-[11.5px] text-faint transition-colors duration-300 hover:text-accent"
+          className="text-faint hover:text-accent -m-3 inline-flex min-h-11 min-w-11 cursor-pointer appearance-none items-center border-none bg-transparent p-3 font-mono text-[11.5px] transition-colors duration-300"
         >
           ⌘K
         </button>
@@ -183,11 +183,11 @@ export function CommandPalette({
             role="dialog"
             aria-modal="true"
             aria-label="Command palette"
-            className="relative w-full max-w-[560px] overflow-hidden rounded-2xl border border-rule-strong bg-panel"
+            className="border-rule-strong bg-panel relative w-full max-w-[560px] overflow-hidden rounded-2xl border"
             style={{ boxShadow: '0 40px 90px -34px rgba(0, 0, 0, 0.9)' }}
           >
-            <div className="flex items-center gap-2.5 border-b border-panel-rule px-[18px] py-[15px]">
-              <span className="font-mono text-sm text-accent">›</span>
+            <div className="border-panel-rule flex items-center gap-2.5 border-b px-[18px] py-[15px]">
+              <span className="text-accent font-mono text-sm">›</span>
               <input
                 ref={inputRef}
                 value={query}
@@ -196,12 +196,12 @@ export function CommandPalette({
                   setSelected(0);
                 }}
                 placeholder={placeholder}
-                className="min-w-0 flex-1 border-none bg-transparent text-base text-text outline-none placeholder:text-muted-2"
+                className="text-text placeholder:text-muted-2 min-w-0 flex-1 border-none bg-transparent text-base outline-none"
               />
               <button
                 type="button"
                 onClick={close}
-                className="cursor-pointer rounded-[5px] border border-rule px-1.5 py-[3px] font-mono text-[11px] text-muted-2"
+                className="border-rule text-muted-2 cursor-pointer rounded-[5px] border px-1.5 py-[3px] font-mono text-[11px]"
               >
                 esc
               </button>
@@ -215,23 +215,23 @@ export function CommandPalette({
                     type="button"
                     onClick={() => run(command)}
                     onMouseEnter={() => setSelected(index)}
-                    className={`flex w-full cursor-pointer items-center gap-3.5 rounded-[9px] px-3 py-[11px] text-left transition-colors duration-200 hover:bg-panel-hover ${
+                    className={`hover:bg-panel-hover flex w-full cursor-pointer items-center gap-3.5 rounded-[9px] px-3 py-[11px] text-left transition-colors duration-200 ${
                       index === activeIndex ? 'bg-panel-hover' : 'bg-transparent'
                     }`}
                   >
                     <span className="min-w-0 flex-1 text-[15.5px]">{command.label}</span>
-                    <span className="font-mono text-[11.5px] text-muted-2">{command.hint}</span>
+                    <span className="text-muted-2 font-mono text-[11.5px]">{command.hint}</span>
                   </button>
                 ))}
                 {filtered.length === 0 && (
-                  <div className="px-3 py-[11px] text-[15.5px] text-muted">No matches.</div>
+                  <div className="text-muted px-3 py-[11px] text-[15.5px]">No matches.</div>
                 )}
               </div>
             ) : (
               <div className="px-6 pt-[22px] pb-[18px]">
-                <div className="mb-3.5 font-mono text-xs text-muted">{view.title}</div>
+                <div className="text-muted mb-3.5 font-mono text-xs">{view.title}</div>
                 {view.lines.map((line, index) => (
-                  <p key={index} className="mb-3 text-base leading-[1.7] text-text-2 last:mb-0">
+                  <p key={index} className="text-text-2 mb-3 text-base leading-[1.7] last:mb-0">
                     {line}
                   </p>
                 ))}
@@ -239,8 +239,8 @@ export function CommandPalette({
             )}
 
             {view.mode !== 'list' && (
-              <div className="flex items-center justify-between gap-3 border-t border-panel-rule px-[18px] py-[13px] font-mono text-xs text-muted-2">
-                <button type="button" onClick={backToList} className="cursor-pointer text-accent">
+              <div className="border-panel-rule text-muted-2 flex items-center justify-between gap-3 border-t px-[18px] py-[13px] font-mono text-xs">
+                <button type="button" onClick={backToList} className="text-accent cursor-pointer">
                   ← all commands
                 </button>
                 <span>{email}</span>

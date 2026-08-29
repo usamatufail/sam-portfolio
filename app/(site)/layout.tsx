@@ -16,7 +16,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
 
       <PageShell>{children}</PageShell>
 
-      <footer className="mx-auto flex w-full max-w-[720px] justify-between gap-4 px-[28px] pb-[44px] font-mono text-[12.5px] text-muted-2">
+      <footer className="text-muted-2 mx-auto flex w-full max-w-[720px] flex-col gap-2 px-[28px] pb-[44px] font-mono text-[12.5px] sm:flex-row sm:justify-between sm:gap-4">
         <span>{settings.footerLeft}</span>
         <AvailabilityBadge state={settings.availabilityState} message={availability} />
       </footer>

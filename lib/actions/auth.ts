@@ -8,7 +8,7 @@ import { fail, type ActionState } from './types';
 
 /**
  * Per-instance throttle. On Vercel each lambda has its own map, so this slows
- * an attacker down rather than stopping them outright — enough for a single
+ * an attacker down rather than stopping them outright, which is enough for a single
  * admin behind a long passcode, and it keeps the surface dependency-free.
  */
 const attempts = new Map<string, { count: number; firstAt: number }>();

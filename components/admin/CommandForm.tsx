@@ -67,7 +67,11 @@ export function CommandForm({ command }: { command: Command }) {
             label={kind === 'route' ? 'path' : 'url'}
             name="value"
             defaultValue={command.value}
-            hint={kind === 'route' ? 'A path on this site, e.g. /work.' : 'A full URL including https://'}
+            hint={
+              kind === 'route'
+                ? 'A path on this site, e.g. /work.'
+                : 'A full URL including https://'
+            }
           />
         </Section>
       )}
@@ -75,7 +79,11 @@ export function CommandForm({ command }: { command: Command }) {
       {!needsValue && <input type="hidden" name="value" value={command.value ?? ''} />}
 
       {isAnswer && (
-        <Section title="Answer view" description="Shown inside the palette when the command runs." columns={1}>
+        <Section
+          title="Answer view"
+          description="Shown inside the palette when the command runs."
+          columns={1}
+        >
           <Field
             label="title"
             name="answerTitle"
@@ -101,7 +109,10 @@ export function CommandForm({ command }: { command: Command }) {
 
       <SaveBar state={state} />
 
-      <Link href="/admin/commands" className="font-mono text-[13px] text-muted hover:text-accent">
+      <Link
+        href="/admin/commands"
+        className="text-muted hover:text-accent -my-2 inline-block py-2 font-mono text-[13px]"
+      >
         ← all commands
       </Link>
     </form>

@@ -7,7 +7,10 @@ export async function generateMetadata(): Promise<Metadata> {
     title: settings.workTitle,
     description: settings.workIntro,
     alternates: { canonical: '/work' },
-    openGraph: { title: `${settings.workTitle} · ${settings.fullName}`, description: settings.workIntro },
+    openGraph: {
+      title: `${settings.workTitle} · ${settings.fullName}`,
+      description: settings.workIntro,
+    },
   };
 }
 
@@ -20,7 +23,7 @@ export default async function WorkPage() {
         <h1 data-anim="" className="m-0 mb-[18px] text-[27px] font-semibold tracking-[-0.025em]">
           {settings.workTitle}
         </h1>
-        <p data-anim="" className="m-0 max-w-[62ch] text-[17.5px] leading-[1.72] text-text-4">
+        <p data-anim="" className="text-text-4 m-0 max-w-[62ch] text-[17.5px] leading-[1.72]">
           {settings.workIntro}
         </p>
       </section>
@@ -30,11 +33,11 @@ export default async function WorkPage() {
           <article
             key={project.id}
             data-anim=""
-            className={`border-t border-rule py-[42px] ${
+            className={`border-rule border-t py-[42px] ${
               index === projects.length - 1 ? 'border-b' : ''
             }`}
           >
-            <div className="mb-[14px] flex items-baseline gap-[14px] font-mono text-[12.5px] text-muted">
+            <div className="text-muted mb-[14px] flex items-baseline gap-[14px] font-mono text-[12.5px]">
               <span>{project.year}</span>
               <span>{project.category}</span>
             </div>
@@ -46,7 +49,7 @@ export default async function WorkPage() {
             {project.body.map((paragraph, i) => (
               <p
                 key={i}
-                className={`m-0 max-w-[64ch] text-[17px] leading-[1.72] text-text-3 ${
+                className={`text-text-3 m-0 max-w-[64ch] text-[17px] leading-[1.72] ${
                   i === project.body.length - 1 ? 'mb-5' : 'mb-[14px]'
                 }`}
               >
@@ -54,12 +57,17 @@ export default async function WorkPage() {
               </p>
             ))}
 
-            <div className="flex flex-wrap gap-x-[18px] gap-y-1.5 font-mono text-[12.5px] text-tech">
+            <div className="text-tech flex flex-wrap gap-x-[18px] gap-y-1.5 font-mono text-[12.5px]">
               {project.tech.map((item) => (
                 <span key={item}>{item}</span>
               ))}
               {project.linkUrl && (
-                <a href={project.linkUrl} target="_blank" rel="noreferrer" className="text-accent">
+                <a
+                  href={project.linkUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-accent -my-2 inline-block py-2"
+                >
                   {project.linkLabel ?? project.linkUrl}
                 </a>
               )}
@@ -67,10 +75,7 @@ export default async function WorkPage() {
           </article>
         ))}
 
-        <p
-          data-anim=""
-          className="mt-[30px] mb-0 font-mono text-[12.5px] leading-[1.9] text-muted"
-        >
+        <p data-anim="" className="text-muted mt-[30px] mb-0 font-mono text-[12.5px] leading-[1.9]">
           {settings.alsoShipped}
         </p>
       </section>

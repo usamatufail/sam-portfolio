@@ -12,14 +12,14 @@ export function LoginForm({ next }: { next: string }) {
     <form action={action} className="flex flex-col gap-4">
       <input type="hidden" name="next" value={next} />
       <label className="block">
-        <span className="mb-1.5 block font-mono text-[12px] text-muted">code</span>
+        <span className="text-muted mb-1.5 block font-mono text-[12px]">code</span>
         <input
           name="passcode"
           type="password"
           autoComplete="current-password"
           autoFocus
           required
-          className="w-full rounded-lg border border-rule bg-panel px-3 py-2.5 text-[15px] text-text outline-none transition-colors focus:border-accent"
+          className="border-rule bg-panel text-text focus:border-accent w-full rounded-lg border px-3 py-2.5 text-[15px] transition-colors outline-none"
         />
       </label>
       <div className="flex items-center gap-4">

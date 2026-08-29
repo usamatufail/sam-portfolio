@@ -1,6 +1,6 @@
 /**
  * `FormDataEntryValue` is `string | File`. Every helper here narrows to string
- * explicitly — coercing a File would silently store "[object File]".
+ * explicitly, because coercing a File would silently store "[object File]".
  */
 function text(raw: FormDataEntryValue | null): string {
   return typeof raw === 'string' ? raw : '';

@@ -1,14 +1,6 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": [
-    "react",
-    "typescript",
-    "unicorn",
-    "oxc",
-    "nextjs",
-    "import",
-    "jsx-a11y"
-  ],
+  "plugins": ["react", "typescript", "unicorn", "oxc", "nextjs", "import", "jsx-a11y"],
   "env": {
     "browser": true,
     "es2024": true,
@@ -24,10 +16,7 @@
     "no-console": [
       "warn",
       {
-        "allow": [
-          "warn",
-          "error"
-        ]
+        "allow": ["warn", "error"]
       }
     ],
     "typescript/no-explicit-any": "error",
@@ -40,28 +29,24 @@
   },
   "overrides": [
     {
-      "files": [
-        "db/seed.mts",
-        "drizzle.config.ts"
-      ],
+      "files": ["db/seed.mts", "drizzle.config.ts"],
       "rules": {
         "no-console": "off"
       }
     },
     {
-      "files": [
-        "components/admin/LoginForm.tsx"
-      ],
+      "files": ["components/admin/LoginForm.tsx"],
       "rules": {
         "jsx-a11y/no-autofocus": "off"
       }
+    },
+    {
+      "files": ["scripts/*.mts"],
+      "rules": {
+        "no-console": "off",
+        "eslint/no-await-in-loop": "off"
+      }
     }
   ],
-  "ignorePatterns": [
-    "node_modules",
-    ".next",
-    "drizzle",
-    "next-env.d.ts",
-    ".agents"
-  ]
+  "ignorePatterns": ["node_modules", ".next", "drizzle", "next-env.d.ts", ".agents"]
 }

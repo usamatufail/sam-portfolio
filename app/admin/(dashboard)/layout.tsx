@@ -24,20 +24,24 @@ export default async function DashboardLayout({ children }: { children: React.Re
             <Link
               key={item.href}
               href={item.href}
-              className="text-text-5 transition-colors hover:text-accent"
+              className="text-text-5 hover:text-accent -my-2 py-2 transition-colors"
             >
               {item.label}
             </Link>
           ))}
         </nav>
         <div className="mt-8 flex flex-wrap items-center gap-4 font-mono text-[13px]">
-          <Link href="/" target="_blank" className="text-muted transition-colors hover:text-accent">
+          <Link
+            href="/"
+            target="_blank"
+            className="text-muted hover:text-accent -my-2 py-2 transition-colors"
+          >
             View site ↗
           </Link>
           <form action={logoutAction}>
             <button
               type="submit"
-              className="cursor-pointer border-none bg-transparent p-0 font-mono text-[13px] text-muted transition-colors hover:text-accent"
+              className="text-muted hover:text-accent -my-2 cursor-pointer border-none bg-transparent px-0 py-2 font-mono text-[13px] transition-colors"
             >
               Sign out
             </button>

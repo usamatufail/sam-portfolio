@@ -16,7 +16,10 @@ export function ProjectForm({ project }: { project?: Project }) {
     <form action={formAction} className="flex flex-col gap-6">
       {project && <input type="hidden" name="id" value={project.id} />}
 
-      <Section title="Home list row" description="How this project reads in the Selected work list.">
+      <Section
+        title="Home list row"
+        description="How this project reads in the Selected work list."
+      >
         <Field label="name" name="name" defaultValue={project?.name} required />
         <Field
           label="slug"
@@ -94,7 +97,10 @@ export function ProjectForm({ project }: { project?: Project }) {
       <SaveBar state={state} />
 
       {project && (
-        <Link href="/admin/projects" className="font-mono text-[13px] text-muted hover:text-accent">
+        <Link
+          href="/admin/projects"
+          className="text-muted hover:text-accent -my-2 inline-block py-2 font-mono text-[13px]"
+        >
           ← all projects
         </Link>
       )}

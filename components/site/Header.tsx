@@ -33,7 +33,7 @@ export function Header({ wordmark }: { wordmark: string }) {
 
   return (
     <header
-      className="sticky top-0 z-30 border-b transition-[background-color,backdrop-filter,border-color] duration-[400ms] ease-site"
+      className="ease-site sticky top-0 z-30 border-b transition-[background-color,backdrop-filter,border-color] duration-[400ms]"
       style={{
         backgroundColor: lifted ? 'oklch(0.145 0.004 250 / 0.72)' : 'oklch(0.145 0.004 250 / 0)',
         backdropFilter: lifted ? 'saturate(1.6) blur(14px)' : 'blur(0px)',
@@ -41,20 +41,20 @@ export function Header({ wordmark }: { wordmark: string }) {
         borderBottomColor: lifted ? 'oklch(0.29 0.006 250)' : 'oklch(0.145 0.004 250 / 0)',
       }}
     >
-      <div className="mx-auto flex w-full max-w-[720px] items-center gap-5 px-[28px] py-[26px]">
+      <div className="mx-auto flex w-full max-w-[720px] items-center gap-4 px-5 py-[26px] sm:gap-5 sm:px-[28px]">
         <Link
           href="/"
-          className="text-[15px] font-semibold tracking-[-0.01em] transition-opacity duration-300 hover:opacity-60"
+          className="-my-2 py-2 text-[15px] font-semibold tracking-[-0.01em] whitespace-nowrap transition-opacity duration-300 hover:opacity-60"
         >
           {wordmark}
         </Link>
         <div className="flex-1" />
-        <nav className="flex gap-[22px] font-mono text-[13px]">
+        <nav className="flex gap-4 font-mono text-[13px] sm:gap-[22px]">
           {NAV.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className={`transition-colors duration-300 hover:text-accent ${
+              className={`hover:text-accent -my-2 py-2 transition-colors duration-300 ${
                 pathname === item.href ? 'text-text' : 'text-muted-2'
               }`}
             >

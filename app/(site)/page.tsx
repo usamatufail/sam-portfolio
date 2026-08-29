@@ -31,7 +31,10 @@ export default async function HomePage() {
       />
 
       <section className="pt-[76px] pb-[78px]" style={{ transformStyle: 'preserve-3d' }}>
-        <div data-anim="" className="mb-[28px] flex items-center gap-6">
+        <div
+          data-anim=""
+          className="mb-[28px] flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-6"
+        >
           <Avatar src={settings.avatarUrl} alt={settings.avatarAlt} />
           <h1 className="m-0 text-[25px] leading-[1.34] font-semibold tracking-[-0.025em]">
             {settings.heroHeadline}
@@ -44,10 +47,8 @@ export default async function HomePage() {
               <p
                 key={index}
                 data-anim=""
-                className={`text-[17.5px] leading-[1.72] text-text-4 ${
-                  index === settings.heroParagraphs.length - 1
-                    ? 'mb-[34px] max-w-[62ch]'
-                    : 'mb-5'
+                className={`text-text-4 text-[17.5px] leading-[1.72] ${
+                  index === settings.heroParagraphs.length - 1 ? 'mb-[34px] max-w-[62ch]' : 'mb-5'
                 }`}
               >
                 {paragraph}
@@ -57,7 +58,7 @@ export default async function HomePage() {
             <div data-anim="" className="flex flex-wrap gap-[18px] font-mono text-[13.5px]">
               <a
                 href={`mailto:${settings.email}`}
-                className="border-b border-accent-40 pb-0.5 text-accent transition-colors duration-300 hover:border-accent"
+                className="border-accent-40 text-accent hover:border-accent -mt-3 border-b pt-3 pb-0.5 transition-colors duration-300"
               >
                 email
               </a>
@@ -71,7 +72,7 @@ export default async function HomePage() {
                   href={link.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="border-b border-rule-link pb-0.5 text-text-5 transition-colors duration-300 hover:border-accent hover:text-accent"
+                  className="border-rule-link text-text-5 hover:border-accent hover:text-accent -mt-3 border-b pt-3 pb-0.5 transition-colors duration-300"
                 >
                   {link.label}
                 </a>
@@ -91,7 +92,7 @@ export default async function HomePage() {
       </section>
 
       <section className="pb-[84px]" style={{ transformStyle: 'preserve-3d' }}>
-        <div data-anim="" className="mb-2 font-mono text-[12.5px] text-muted">
+        <div data-anim="" className="text-muted mb-2 font-mono text-[12.5px]">
           {settings.selectedWorkLabel}
         </div>
 
@@ -101,13 +102,15 @@ export default async function HomePage() {
               key={project.id}
               href="/work"
               data-anim=""
-              className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-5 border-b border-rule py-[19px] transition-[border-color,transform] duration-[400ms] ease-site hover:translate-x-[5px] hover:border-accent-50"
+              className="border-rule ease-site hover:border-accent-50 grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-5 border-b py-[19px] transition-[border-color,transform] duration-[400ms] hover:translate-x-[5px]"
             >
               <span>
-                <span className="text-[17px] font-semibold tracking-[-0.015em]">{project.name}</span>
-                <span className="text-base text-text-5">{project.listDescription}</span>
+                <span className="text-[17px] font-semibold tracking-[-0.015em]">
+                  {project.name}
+                </span>
+                <span className="text-text-5 text-base">{project.listDescription}</span>
               </span>
-              <span className="font-mono text-[12.5px] text-muted-2">{project.year}</span>
+              <span className="text-muted-2 font-mono text-[12.5px]">{project.year}</span>
             </Link>
           ))}
         </div>
@@ -115,7 +118,7 @@ export default async function HomePage() {
         <Link
           href="/work"
           data-anim=""
-          className="mt-[22px] inline-block font-mono text-[13px] text-accent transition-transform duration-[400ms] ease-site hover:translate-x-[4px]"
+          className="text-accent ease-site mt-[30px] -mb-2 inline-block py-2 font-mono text-[13px] transition-transform duration-[400ms] hover:translate-x-[4px]"
         >
           {settings.selectedWorkCta}
         </Link>

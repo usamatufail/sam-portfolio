@@ -32,7 +32,7 @@ export function RevealRoot() {
       }
     };
 
-    // Unconditional safety net — content is never left hidden.
+    // Unconditional safety net: content is never left hidden.
     const safety = window.setTimeout(revealAll, 1600);
 
     let raf = 0;
@@ -86,7 +86,8 @@ export function RevealRoot() {
       );
     };
 
-    const belowFold = (node: HTMLElement) => node.getBoundingClientRect().top > viewportHeight * 0.92;
+    const belowFold = (node: HTMLElement) =>
+      node.getBoundingClientRect().top > viewportHeight * 0.92;
 
     const waiting = nodes.filter(belowFold);
     for (const node of waiting) {

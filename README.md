@@ -1,21 +1,21 @@
 # sam-portfolio
 
-Personal portfolio for **Usama Tufail (Sam)** — senior full-stack engineer, Toptal Verified
+Personal portfolio for **Usama Tufail (Sam)**, senior full-stack engineer, Toptal Verified
 Expert in Engineering. Four public pages (Home, Work, About, Contact), a ⌘K command palette,
 and a passcode-protected admin panel where every word on the site is editable.
 
 ## Stack
 
-| Layer      | Choice                                  | Why |
-|------------|-----------------------------------------|-----|
-| Framework  | Next.js 16 (App Router, Turbopack)      | Static prerendering + `generateMetadata`, `sitemap.ts`, `robots.ts`, JSON-LD |
-| Language   | TypeScript 5.9                          | |
-| Styling    | Tailwind CSS v4 (`@theme` tokens)       | Design tokens live in `app/globals.css` as `oklch()` custom properties |
-| Database   | Neon (Lakebase Postgres)                | Serverless, scale-to-zero, branches with the app |
-| ORM        | Drizzle                                 | ~7.4kb, zero deps, fast serverless cold starts |
-| Auth       | `jose` HS256 cookie session             | One admin, one passcode — no auth provider needed |
-| Linting    | oxlint (+ `tsgolint` type-aware pass)   | 50–100× faster than ESLint |
-| Formatting | Prettier                                | |
+| Layer      | Choice                                | Why                                                                          |
+| ---------- | ------------------------------------- | ---------------------------------------------------------------------------- |
+| Framework  | Next.js 16 (App Router, Turbopack)    | Static prerendering + `generateMetadata`, `sitemap.ts`, `robots.ts`, JSON-LD |
+| Language   | TypeScript 5.9                        |                                                                              |
+| Styling    | Tailwind CSS v4 (`@theme` tokens)     | Design tokens live in `app/globals.css` as `oklch()` custom properties       |
+| Database   | Neon (Lakebase Postgres)              | Serverless, scale-to-zero, branches with the app                             |
+| ORM        | Drizzle                               | ~7.4kb, zero deps, fast serverless cold starts                               |
+| Auth       | `jose` HS256 cookie session           | One admin, one passcode, no auth provider needed                             |
+| Linting    | oxlint (+ `tsgolint` type-aware pass) | 50–100× faster than ESLint                                                   |
+| Formatting | Prettier                              |                                                                              |
 
 ## Getting started
 
@@ -29,32 +29,32 @@ pnpm dev
 
 ### Environment
 
-| Variable | Purpose |
-|---|---|
-| `DATABASE_URL` | Neon pooled connection string. `neon link` writes this for you. |
-| `ADMIN_PASSCODE` | The code that unlocks `/admin`. |
-| `SESSION_SECRET` | Signs the admin session cookie. 32+ chars — `openssl rand -base64 48`. |
-| `NEXT_PUBLIC_SITE_URL` | Canonical origin for metadata, sitemap and robots. |
+| Variable               | Purpose                                                               |
+| ---------------------- | --------------------------------------------------------------------- |
+| `DATABASE_URL`         | Neon pooled connection string. `neon link` writes this for you.       |
+| `ADMIN_PASSCODE`       | The code that unlocks `/admin`.                                       |
+| `SESSION_SECRET`       | Signs the admin session cookie. 32+ chars. `openssl rand -base64 48`. |
+| `NEXT_PUBLIC_SITE_URL` | Canonical origin for metadata, sitemap and robots.                    |
 
 ## Scripts
 
-| Command | Does |
-|---|---|
-| `pnpm dev` | Dev server |
-| `pnpm build` / `pnpm start` | Production build / serve |
-| `pnpm check` | `lint` + `typecheck` |
-| `pnpm lint` / `pnpm lint:types` | oxlint / oxlint with type-aware rules |
-| `pnpm format` | Prettier write |
-| `pnpm db:generate` / `db:migrate` | Create / apply a migration |
-| `pnpm db:seed` / `db:seed:force` | Seed content (`:force` wipes and reseeds) |
-| `pnpm db:studio` | Drizzle Studio |
+| Command                           | Does                                      |
+| --------------------------------- | ----------------------------------------- |
+| `pnpm dev`                        | Dev server                                |
+| `pnpm build` / `pnpm start`       | Production build / serve                  |
+| `pnpm check`                      | `lint` + `typecheck`                      |
+| `pnpm lint` / `pnpm lint:types`   | oxlint / oxlint with type-aware rules     |
+| `pnpm format`                     | Prettier write                            |
+| `pnpm db:generate` / `db:migrate` | Create / apply a migration                |
+| `pnpm db:seed` / `db:seed:force`  | Seed content (`:force` wipes and reseeds) |
+| `pnpm db:studio`                  | Drizzle Studio                            |
 
 ## How it fits together
 
 ```
 app/
   layout.tsx            root: fonts, base metadata
-  (site)/               public site — statically prerendered
+  (site)/               public site, statically prerendered
     layout.tsx          header, footer, ⌘K palette, reveal animations
     page.tsx            home (+ JSON-LD Person schema)
     work|about|contact/
@@ -84,27 +84,41 @@ prerendered routes, so the site keeps serving the old HTML. Do not remove either
 
 `proxy.ts` redirects unauthenticated `/admin` requests to the login page, but it is only a
 convenience layer. The real boundary is `requireAdmin()`, called in the dashboard layout and
-at the top of every server action — a proxy check alone is not an authorisation boundary.
+at the top of every server action. A proxy check alone is not an authorisation boundary.
 
 Login compares the submitted code against `ADMIN_PASSCODE` in constant time (both sides are
 SHA-256'd first so length never leaks) and is throttled to 8 attempts per 15 minutes per IP.
-That throttle is per-instance, so on serverless it slows an attacker rather than stopping one —
+That throttle is per-instance, so on serverless it slows an attacker rather than stopping one,
 fine behind a long passcode, worth revisiting if the threat model changes.
 
 ### Availability
 
 Whether Sam is taking work is stated in **exactly one place**: `availabilityState` in
 settings, rendered as the footer badge. The other copy was deliberately scrubbed of
-availability claims — the hero's closing sentence, the `whoami` palette answer, and the SEO
+availability claims: the hero's closing sentence, the `whoami` palette answer, and the SEO
 description all used to assert it independently and would have gone stale.
 
 Three states (`available` / `limited` / `unavailable`), each with its own editable message.
 A command-palette answer line containing the `{availability}` token has it substituted at
-render time, capitalised when it starts the line — that is how the "Availability and how I
+render time, capitalised when it starts the line. That is how the "Availability and how I
 work" answer stays in sync with the badge without restating it.
 
 If you add copy that mentions taking work, use the token or leave it to the badge. Two
 independent claims is the bug this exists to prevent.
+
+### Responsive
+
+`pnpm audit:responsive` renders every page at 320/375/414/768/1280 against a running
+dev server and fails on horizontal overflow or tap targets under 32px. It needs a browser
+binary once: `npx playwright install chromium`.
+
+Worth re-running after editing content, since long copy is what usually breaks a layout.
+Two things it caught that reading the CSS did not: an email address has no break points, so
+a fixed 116px label column starved it below 375px; and the hero's 150px portrait left the
+headline about 90px of column at 320px. Both now stack below `sm` and are unchanged above it.
+
+Tap targets are grown with padding plus a matching negative margin, so hit areas increase
+without moving anything on screen.
 
 ### Design
 

@@ -8,7 +8,10 @@ import { addExperience } from '@/lib/actions/content';
 export const dynamic = 'force-dynamic';
 
 export default async function ExperiencePage() {
-  const rows = await db.select().from(experience).orderBy(asc(experience.sortOrder), asc(experience.id));
+  const rows = await db
+    .select()
+    .from(experience)
+    .orderBy(asc(experience.sortOrder), asc(experience.id));
 
   return (
     <>
@@ -16,7 +19,7 @@ export default async function ExperiencePage() {
         <h1 className="m-0 text-[24px] font-semibold tracking-[-0.02em]">Experience</h1>
         <AddButton action={addExperience} label="Add row" />
       </div>
-      <p className="mt-2 mb-8 max-w-[64ch] text-[15px] leading-[1.7] text-text-5">
+      <p className="text-text-5 mt-2 mb-8 max-w-[64ch] text-[15px] leading-[1.7]">
         The About page timeline, newest first. Saving keeps the order shown here.
       </p>
 

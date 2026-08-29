@@ -24,7 +24,7 @@ import { fail, ok, type ActionState } from './types';
  *
  * Both calls are needed, and this was verified against a production build:
  * `revalidateTag` drops the cached query results, but on its own it does NOT
- * re-render the statically prerendered public routes — they keep serving the
+ * re-render the statically prerendered public routes; they keep serving the
  * old HTML. `revalidatePath('/', 'layout')` re-renders every public route with
  * fresh data. Dropping either one leaves saves invisible on the live site.
  */
@@ -238,7 +238,12 @@ export async function saveExperience(_prev: ActionState, formData: FormData): Pr
       rows.map((row) =>
         db
           .update(experience)
-          .set({ period: row.period, role: row.role, employer: row.employer, sortOrder: row.sortOrder })
+          .set({
+            period: row.period,
+            role: row.role,
+            employer: row.employer,
+            sortOrder: row.sortOrder,
+          })
           .where(eq(experience.id, row.id)),
       ),
     );
@@ -406,7 +411,9 @@ export async function updateCommand(_prev: ActionState, formData: FormData): Pro
 
 export async function addCommand(): Promise<void> {
   await requireAdmin();
-  const [maxRow] = await db.select({ max: sql<number | null>`max(${commands.sortOrder})` }).from(commands);
+  const [maxRow] = await db
+    .select({ max: sql<number | null>`max(${commands.sortOrder})` })
+    .from(commands);
   const order = (maxRow?.max ?? -1) + 1;
   const [row] = await db
     .insert(commands)

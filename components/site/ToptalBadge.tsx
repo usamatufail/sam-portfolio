@@ -31,11 +31,11 @@ export function ToptalBadge({
 
       <div
         data-anim=""
-        className="flex justify-end pt-[4px]"
+        className="flex justify-center pt-[4px] sm:justify-end"
         style={{ fontFamily: 'proxima-nova, Arial, sans-serif' }}
       >
         <div
-          className="inline-block bg-[#25a9ef] p-[6px] transition-transform duration-500 ease-site hover:-translate-y-[4px] hover:scale-[1.02]"
+          className="ease-site inline-block bg-[#25a9ef] p-[6px] transition-transform duration-500 hover:-translate-y-[4px] hover:scale-[1.02]"
           style={{ clipPath: HEX }}
         >
           <div
@@ -47,7 +47,12 @@ export function ToptalBadge({
               boxShadow: '0 28px 50px rgba(6, 30, 96, 0.35)',
             }}
           >
-            <svg width="64" viewBox="0 0 60 17" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <svg
+              width="64"
+              viewBox="0 0 60 17"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
               <path
                 d="m20.85 6.38 6.06-.89 2.72-5.49 2.71 5.49 6.06.89-4.39 4.28 1.04 6.03-5.42-2.85-5.43 2.85 1.04-6.03zm33.06 7.17 1.85-.27.82-1.67.83 1.67 1.84.27-1.33 1.31.31 1.83-1.65-.87-1.66.87.32-1.83zm-3.38-3.01-3.61-.52-1.61-3.26-1.62 3.26-3.6.52 2.6 2.55-.61 3.59 3.23-1.69 3.21 1.69-.61-3.59zm-45.19 3.01-1.85-.27-.82-1.67-.83 1.67-1.84.27 1.33 1.31-.31 1.83 1.65-.87 1.65.87-.31-1.83zm3.38-3.01 3.61-.52 1.61-3.26 1.61 3.26 3.61.52-2.6 2.55.61 3.59-3.23-1.69-3.22 1.69.62-3.59z"
                 fill="#00c3ff"

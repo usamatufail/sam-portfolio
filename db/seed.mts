@@ -3,7 +3,8 @@ import { config } from 'dotenv';
 config({ path: ['.env.local', '.env'], quiet: true });
 
 const { db } = await import('./index.js');
-const { settings, projects, experience, principles, education, commands } = await import('./schema.js');
+const { settings, projects, experience, principles, education, commands } =
+  await import('./schema.js');
 
 const force = process.argv.includes('--force');
 
@@ -64,7 +65,7 @@ const SETTINGS = {
   // The only availability claim on the site. Everything else was scrubbed of it.
   availabilityState: 'available' as const,
   availabilityAvailable: 'available for work',
-  availabilityLimited: 'mostly booked — open to a conversation',
+  availabilityLimited: 'mostly booked, open to a conversation',
   availabilityUnavailable: 'not taking new work right now',
 
   seoTitle: 'Usama Tufail (Sam), Senior Full-stack Engineer · React, Next.js, TypeScript',
@@ -180,17 +181,32 @@ const PROJECTS = [
 ];
 
 const EXPERIENCE = [
-  { period: '2022-Present', role: 'Verified Expert in Engineering', employer: 'Toptal', sortOrder: 0 },
+  {
+    period: '2022-Present',
+    role: 'Verified Expert in Engineering',
+    employer: 'Toptal',
+    sortOrder: 0,
+  },
   { period: '2023-2024', role: 'Senior Front-end Engineer', employer: 'Marketplug', sortOrder: 1 },
   { period: '2022-2023', role: 'Full-stack Developer', employer: 'NTA', sortOrder: 2 },
-  { period: '2021-2022', role: 'Lead Front-end Engineer', employer: 'Humans · AMF Media', sortOrder: 3 },
+  {
+    period: '2021-2022',
+    role: 'Lead Front-end Engineer',
+    employer: 'Humans · AMF Media',
+    sortOrder: 3,
+  },
   {
     period: '2018-2021',
     role: 'Full-stack Developer',
     employer: 'Invictus Solutions · Gamicacloud',
     sortOrder: 4,
   },
-  { period: '2016-2018', role: 'Freelance Web Developer', employer: 'Remote client work', sortOrder: 5 },
+  {
+    period: '2016-2018',
+    role: 'Freelance Web Developer',
+    employer: 'Remote client work',
+    sortOrder: 5,
+  },
 ];
 
 const PRINCIPLES = [
@@ -229,15 +245,78 @@ const EDUCATION = [
 ];
 
 const COMMANDS = [
-  { key: 'work', label: 'Selected work', hint: 'page', kind: 'route' as const, value: '/work', sortOrder: 0 },
-  { key: 'about', label: 'About me', hint: 'page', kind: 'route' as const, value: '/about', sortOrder: 1 },
-  { key: 'contact', label: 'Contact details', hint: 'page', kind: 'route' as const, value: '/contact', sortOrder: 2 },
-  { key: 'hire', label: 'Email me about a role', hint: 'mail', kind: 'mailto' as const, value: null, sortOrder: 3 },
-  { key: 'copy', label: 'Copy my email address', hint: 'copy', kind: 'copyEmail' as const, value: null, sortOrder: 4 },
-  { key: 'whatsapp', label: 'Message me on WhatsApp', hint: 'link', kind: 'external' as const, value: 'https://wa.me/923158626392', sortOrder: 5 },
-  { key: 'resume', label: 'Open my Toptal résumé', hint: 'link', kind: 'external' as const, value: 'https://www.toptal.com/developers/resume/usama-tufail', sortOrder: 6 },
-  { key: 'linkedin', label: 'Open LinkedIn', hint: 'link', kind: 'external' as const, value: 'https://www.linkedin.com/in/samtufail/', sortOrder: 7 },
-  { key: 'github', label: 'Open GitHub', hint: 'link', kind: 'external' as const, value: 'https://github.com/usamatufail', sortOrder: 8 },
+  {
+    key: 'work',
+    label: 'Selected work',
+    hint: 'page',
+    kind: 'route' as const,
+    value: '/work',
+    sortOrder: 0,
+  },
+  {
+    key: 'about',
+    label: 'About me',
+    hint: 'page',
+    kind: 'route' as const,
+    value: '/about',
+    sortOrder: 1,
+  },
+  {
+    key: 'contact',
+    label: 'Contact details',
+    hint: 'page',
+    kind: 'route' as const,
+    value: '/contact',
+    sortOrder: 2,
+  },
+  {
+    key: 'hire',
+    label: 'Email me about a role',
+    hint: 'mail',
+    kind: 'mailto' as const,
+    value: null,
+    sortOrder: 3,
+  },
+  {
+    key: 'copy',
+    label: 'Copy my email address',
+    hint: 'copy',
+    kind: 'copyEmail' as const,
+    value: null,
+    sortOrder: 4,
+  },
+  {
+    key: 'whatsapp',
+    label: 'Message me on WhatsApp',
+    hint: 'link',
+    kind: 'external' as const,
+    value: 'https://wa.me/923158626392',
+    sortOrder: 5,
+  },
+  {
+    key: 'resume',
+    label: 'Open my Toptal résumé',
+    hint: 'link',
+    kind: 'external' as const,
+    value: 'https://www.toptal.com/developers/resume/usama-tufail',
+    sortOrder: 6,
+  },
+  {
+    key: 'linkedin',
+    label: 'Open LinkedIn',
+    hint: 'link',
+    kind: 'external' as const,
+    value: 'https://www.linkedin.com/in/samtufail/',
+    sortOrder: 7,
+  },
+  {
+    key: 'github',
+    label: 'Open GitHub',
+    hint: 'link',
+    kind: 'external' as const,
+    value: 'https://github.com/usamatufail',
+    sortOrder: 8,
+  },
   {
     key: 'whoami',
     label: 'Who am I, in four lines',

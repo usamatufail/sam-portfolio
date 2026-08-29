@@ -17,7 +17,7 @@ export default async function CommandsPage() {
         <h1 className="m-0 text-[24px] font-semibold tracking-[-0.02em]">Command palette</h1>
         <AddButton action={addCommand} label="Add command" />
       </div>
-      <p className="mt-2 mb-8 max-w-[64ch] text-[15px] leading-[1.7] text-text-5">
+      <p className="text-text-5 mt-2 mb-8 max-w-[64ch] text-[15px] leading-[1.7]">
         Every row behind ⌘K, in the order they appear. The four answer commands print their text
         inside the palette rather than navigating.
       </p>
@@ -26,13 +26,16 @@ export default async function CommandsPage() {
         {rows.map((command, index) => (
           <div
             key={command.id}
-            className="flex flex-wrap items-center gap-4 rounded-2xl border border-rule bg-panel p-4"
+            className="border-rule bg-panel flex flex-wrap items-center gap-4 rounded-2xl border p-4"
           >
             <div className="min-w-0 flex-1">
-              <Link href={`/admin/commands/${command.id}`} className="hover:text-accent">
+              <Link
+                href={`/admin/commands/${command.id}`}
+                className="hover:text-accent -my-2 inline-block py-2"
+              >
                 <span className="text-[16px] font-semibold">{command.label}</span>
               </Link>
-              <div className="mt-1 flex flex-wrap gap-3 font-mono text-[12px] text-muted">
+              <div className="text-muted mt-1 flex flex-wrap gap-3 font-mono text-[12px]">
                 <span>{command.key}</span>
                 <span>{command.kind}</span>
                 {!command.enabled && <span className="text-[oklch(0.72_0.19_25)]">disabled</span>}
