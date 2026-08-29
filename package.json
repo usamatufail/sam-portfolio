@@ -18,8 +18,7 @@
     "db:studio": "drizzle-kit studio",
     "db:seed": "tsx db/seed.mts",
     "check": "pnpm run lint && pnpm run typecheck",
-    "db:seed:force": "tsx db/seed.mts --force",
-    "audit:responsive": "tsx scripts/responsive-audit.mts"
+    "db:seed:force": "tsx db/seed.mts --force"
   },
   "dependencies": {
     "@neon/config": "^1.0.5",
@@ -42,7 +41,6 @@
     "drizzle-kit": "^0.31.10",
     "oxlint": "^1.80.0",
     "oxlint-tsgolint": "^7.0.2001",
-    "playwright": "^1.62.1",
     "prettier": "^3.9.6",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4",

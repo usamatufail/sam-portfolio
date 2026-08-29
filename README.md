@@ -106,20 +106,6 @@ work" answer stays in sync with the badge without restating it.
 If you add copy that mentions taking work, use the token or leave it to the badge. Two
 independent claims is the bug this exists to prevent.
 
-### Responsive
-
-`pnpm audit:responsive` renders every page at 320/375/414/768/1280 against a running
-dev server and fails on horizontal overflow or tap targets under 32px. It needs a browser
-binary once: `npx playwright install chromium`.
-
-Worth re-running after editing content, since long copy is what usually breaks a layout.
-Two things it caught that reading the CSS did not: an email address has no break points, so
-a fixed 116px label column starved it below 375px; and the hero's 150px portrait left the
-headline about 90px of column at 320px. Both now stack below `sm` and are unchanged above it.
-
-Tap targets are grown with padding plus a matching negative margin, so hit areas increase
-without moving anything on screen.
-
 ### Design
 
 `design_handoff_portfolio/README.md` is the source of truth for colours, type scale, spacing
@@ -128,6 +114,13 @@ and motion. Two rules worth keeping:
 - **Never hide what is already on screen.** `RevealRoot` only hides below-the-fold nodes, does
   it from JS after first paint, and clears everything unconditionally after 1.6s. An earlier
   build shipped a blank first paint by getting this wrong.
+- **Two layouts stack below `sm` on purpose.** Contact rows and the About experience
+  timeline use a fixed 116px label column; below 375px that starves the email address,
+  which has no break points and cannot wrap. The hero stacks for the same reason: at 320px
+  a 150px portrait leaves the headline about 90px of column. Both are unchanged at `sm`
+  and above, which is the approved design.
+- **Tap targets are grown with padding plus a matching negative margin**, so hit areas
+  increase without moving anything on screen. Keep the pairs together when editing.
 - **Do not restyle Toptal's badge.** It is their embeddable mark. Its CTA carries a referral
   fragment, which is why `badgeCtaUrl` is a separate field from the plain résumé link.
 
