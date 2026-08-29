@@ -1,14 +1,11 @@
 'use client';
 
+import Link from 'next/link';
 import { useActionState, useState } from 'react';
-import type { Settings } from '@/db/schema';
+import { AVAILABILITY_STATES, type Settings } from '@/db/schema';
 import { saveSettings } from '@/lib/actions/content';
 import type { ActionState } from '@/lib/actions/types';
-import { formatParagraphs } from '@/lib/parse';
-import { AVAILABILITY_STATES } from '@/db/schema';
 import { Field, SaveBar, Section, Select, TextArea, Toggle } from './ui';
-
-const PARAGRAPH_HINT = 'One paragraph per block, separated by a blank line.';
 
 const FIELD_BY_STATE = {
   available: 'availabilityAvailable',
@@ -16,23 +13,44 @@ const FIELD_BY_STATE = {
   unavailable: 'availabilityUnavailable',
 } as const;
 
+/**
+ * Only what cannot be edited on the page itself.
+ *
+ * Everything visible — headings, intros, paragraphs, labels, link text — is now
+ * edited inline on the site via the command palette, so it deliberately does
+ * not appear here too. What is left is the things with no on-page text to click:
+ * URLs behind links, image sources, structured data, and SEO metadata.
+ */
 export function SettingsForm({ settings }: { settings: Settings }) {
   const [formState, action] = useActionState<ActionState, FormData>(saveSettings, null);
   const [state, setState] = useState<Settings['availabilityState']>(settings.availabilityState);
 
   return (
     <form action={action} className="flex flex-col gap-6">
+      <p className="border-rule bg-panel text-text-5 m-0 rounded-2xl border p-4 text-[14px] leading-[1.7]">
+        Headings, paragraphs and labels are edited on the site itself: open it, press{' '}
+        <span className="text-text font-mono">⌘K</span>, type your code, then use the{' '}
+        <span className="text-text">edit</span> toggle.{' '}
+        <Link href="/" target="_blank" className="text-accent -my-2 inline-block py-2">
+          Open the site ↗
+        </Link>
+      </p>
+
       <Section
         title="Identity"
-        description="The wordmark in the header and the name search engines index."
+        description="Not shown as text on the page; used for structured data and the portrait."
       >
-        <Field label="wordmark" name="wordmark" defaultValue={settings.wordmark} />
-        <Field label="full name" name="fullName" defaultValue={settings.fullName} />
+        <Field
+          label="full name"
+          name="fullName"
+          defaultValue={settings.fullName}
+          hint="Person schema."
+        />
         <Field
           label="job title"
           name="jobTitle"
           defaultValue={settings.jobTitle}
-          hint="Used in the Person schema."
+          hint="Person schema."
         />
         <Field
           label="avatar url"
@@ -40,29 +58,37 @@ export function SettingsForm({ settings }: { settings: Settings }) {
           defaultValue={settings.avatarUrl}
           hint="A path under /public, or an absolute URL."
         />
-        <Field label="avatar alt text" name="avatarAlt" defaultValue={settings.avatarAlt} />
-      </Section>
-
-      <Section title="Home hero" columns={1}>
-        <TextArea
-          label="headline"
-          name="heroHeadline"
-          defaultValue={settings.heroHeadline}
-          rows={2}
-        />
-        <TextArea
-          label="intro paragraphs"
-          name="heroParagraphs"
-          defaultValue={formatParagraphs(settings.heroParagraphs)}
-          rows={9}
-          hint={PARAGRAPH_HINT}
+        <Field
+          label="avatar alt text"
+          name="avatarAlt"
+          defaultValue={settings.avatarAlt}
+          hint="Read by screen readers."
         />
       </Section>
 
       <Section
-        title="Toptal badge"
-        description="Toptal's own mark. Copy is editable; the styling is theirs."
+        title="Links"
+        description="The destinations. The visible link text is edited on the page."
       >
+        <Field label="email" name="email" type="email" defaultValue={settings.email} />
+        <Field
+          label="phone"
+          name="phone"
+          defaultValue={settings.phone}
+          hint="Digits only; the WhatsApp link is built from this."
+        />
+        <Field label="linkedin url" name="linkedinUrl" defaultValue={settings.linkedinUrl} />
+        <Field label="github url" name="githubUrl" defaultValue={settings.githubUrl} />
+        <Field label="résumé url" name="resumeUrl" defaultValue={settings.resumeUrl} />
+        <Field
+          label="palette placeholder"
+          name="palettePlaceholder"
+          defaultValue={settings.palettePlaceholder}
+          hint="Placeholder text inside ⌘K."
+        />
+      </Section>
+
+      <Section title="Toptal badge">
         <div className="sm:col-span-2">
           <Toggle
             label="Show the badge on the home page"
@@ -70,9 +96,6 @@ export function SettingsForm({ settings }: { settings: Settings }) {
             defaultChecked={settings.badgeEnabled}
           />
         </div>
-        <Field label="headline" name="badgeHeadline" defaultValue={settings.badgeHeadline} />
-        <Field label="vetted-by line" name="badgeVettedBy" defaultValue={settings.badgeVettedBy} />
-        <Field label="button label" name="badgeCtaLabel" defaultValue={settings.badgeCtaLabel} />
         <div className="sm:col-span-2">
           <Field
             label="button url"
@@ -84,91 +107,8 @@ export function SettingsForm({ settings }: { settings: Settings }) {
       </Section>
 
       <Section
-        title="Contact and profiles"
-        description="Used on the contact page, the hero link row and the command palette."
-      >
-        <Field label="email" name="email" type="email" defaultValue={settings.email} />
-        <Field
-          label="phone"
-          name="phone"
-          defaultValue={settings.phone}
-          hint="Digits only; the WhatsApp link is built from this."
-        />
-        <Field
-          label="phone label"
-          name="phoneLabel"
-          defaultValue={settings.phoneLabel}
-          hint="How the number is displayed."
-        />
-        <div />
-        <Field label="linkedin url" name="linkedinUrl" defaultValue={settings.linkedinUrl} />
-        <Field label="linkedin label" name="linkedinLabel" defaultValue={settings.linkedinLabel} />
-        <Field label="github url" name="githubUrl" defaultValue={settings.githubUrl} />
-        <Field label="github label" name="githubLabel" defaultValue={settings.githubLabel} />
-        <Field label="résumé url" name="resumeUrl" defaultValue={settings.resumeUrl} />
-        <Field label="résumé label" name="resumeLabel" defaultValue={settings.resumeLabel} />
-      </Section>
-
-      <Section title="Home: selected work">
-        <Field
-          label="section label"
-          name="selectedWorkLabel"
-          defaultValue={settings.selectedWorkLabel}
-        />
-        <Field
-          label="closing link"
-          name="selectedWorkCta"
-          defaultValue={settings.selectedWorkCta}
-        />
-      </Section>
-
-      <Section title="Work page" columns={1}>
-        <Field label="heading" name="workTitle" defaultValue={settings.workTitle} />
-        <TextArea label="intro" name="workIntro" defaultValue={settings.workIntro} rows={3} />
-        <TextArea
-          label="also shipped"
-          name="alsoShipped"
-          defaultValue={settings.alsoShipped}
-          rows={2}
-        />
-      </Section>
-
-      <Section title="About page" columns={1}>
-        <Field label="heading" name="aboutTitle" defaultValue={settings.aboutTitle} />
-        <TextArea
-          label="narrative paragraphs"
-          name="aboutParagraphs"
-          defaultValue={formatParagraphs(settings.aboutParagraphs)}
-          rows={12}
-          hint={PARAGRAPH_HINT}
-        />
-        <div className="grid gap-5 sm:grid-cols-3">
-          <Field
-            label="experience label"
-            name="experienceLabel"
-            defaultValue={settings.experienceLabel}
-          />
-          <Field
-            label="how-I-work label"
-            name="principlesLabel"
-            defaultValue={settings.principlesLabel}
-          />
-          <Field
-            label="education label"
-            name="educationLabel"
-            defaultValue={settings.educationLabel}
-          />
-        </div>
-      </Section>
-
-      <Section title="Contact page" columns={1}>
-        <Field label="heading" name="contactTitle" defaultValue={settings.contactTitle} />
-        <TextArea label="intro" name="contactIntro" defaultValue={settings.contactIntro} rows={3} />
-      </Section>
-
-      <Section
         title="Availability"
-        description="The only place the site states whether you are taking work. It shows as the footer badge, and replaces {availability} anywhere it appears in a command palette answer."
+        description="The only place the site states whether you are taking work. The live message can also be edited inline in the footer."
         columns={1}
       >
         <Select
@@ -184,9 +124,7 @@ export function SettingsForm({ settings }: { settings: Settings }) {
             { value: 'limited', label: 'Limited, mostly booked' },
             { value: 'unavailable', label: 'Unavailable, not taking work' },
           ]}
-          hint="Only the message for the selected state is shown on the site."
         />
-
         <div className="flex flex-col gap-4">
           {AVAILABILITY_STATES.map((option) => (
             <div
@@ -203,29 +141,11 @@ export function SettingsForm({ settings }: { settings: Settings }) {
             </div>
           ))}
         </div>
-
-        <p className="border-rule bg-bg text-text-5 m-0 rounded-lg border px-3 py-2.5 text-[13px] leading-[1.6]">
-          Showing on the site now:{' '}
-          <span className="text-text">{settings[FIELD_BY_STATE[state]] || 'not set'}</span>
-          <span className="text-faint mt-1 block">
-            Written lowercase reads best: the badge shows it as-is, and it is capitalised
-            automatically when it opens a palette answer line.
-          </span>
-        </p>
-      </Section>
-
-      <Section title="Footer and palette" columns={1}>
-        <Field label="footer left" name="footerLeft" defaultValue={settings.footerLeft} />
-        <Field
-          label="palette placeholder"
-          name="palettePlaceholder"
-          defaultValue={settings.palettePlaceholder}
-        />
       </Section>
 
       <Section
         title="SEO"
-        description="Feeds the <title>, meta description, Open Graph tags and the Person schema."
+        description="Never rendered as text, so it has no inline equivalent."
         columns={1}
       >
         <Field label="title" name="seoTitle" defaultValue={settings.seoTitle} />

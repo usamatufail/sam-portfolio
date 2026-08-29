@@ -51,6 +51,32 @@ export async function loginAction(_prev: ActionState, formData: FormData): Promi
   redirect(next.startsWith('/admin') ? next : '/admin');
 }
 
+/**
+ * Unlocks inline editing from the command palette: the visitor types the code
+ * into the palette's own input, so there is no separate login screen.
+ * Shares the throttle above with the /admin login form.
+ */
+export async function unlockAction(passcode: string): Promise<{ ok: boolean; message: string }> {
+  const key = await clientKey();
+  if (throttled(key)) {
+    return { ok: false, message: 'Too many attempts. Wait fifteen minutes.' };
+  }
+
+  const candidate = typeof passcode === 'string' ? passcode.trim() : '';
+  if (!candidate || !(await isPasscodeCorrect(candidate))) {
+    return { ok: false, message: 'Not recognised.' };
+  }
+
+  attempts.delete(key);
+  await createSession();
+  return { ok: true, message: 'Editing unlocked.' };
+}
+
+/** Leaves edit mode and drops the session. */
+export async function lockAction(): Promise<void> {
+  await destroySession();
+}
+
 export async function logoutAction(): Promise<void> {
   await destroySession();
   redirect('/admin/login');

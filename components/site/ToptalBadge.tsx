@@ -12,6 +12,9 @@ const GLOW = [
   'radial-gradient(circle at 120% 80%, #00c3ff -80%, #fff 30%)',
 ].join(', ');
 
+import { Editable } from '@/components/edit/Editable';
+import { editPath } from '@/lib/inline/fields';
+
 export function ToptalBadge({
   headline,
   vettedBy,
@@ -59,9 +62,18 @@ export function ToptalBadge({
               />
             </svg>
 
-            <h3 className="m-0 text-[19px] leading-none font-bold">{headline}</h3>
+            <Editable
+              as="h3"
+              path={editPath('settings', 1, 'badgeHeadline')}
+              value={headline}
+              className="m-0 text-[19px] leading-none font-bold"
+            />
             <div className="h-px w-[120px] bg-[#25a9ef]" />
-            <span className="mb-[-6px] text-base">{vettedBy}</span>
+            <Editable
+              path={editPath('settings', 1, 'badgeVettedBy')}
+              value={vettedBy}
+              className="mb-[-6px] text-base"
+            />
 
             <svg
               className="w-[100px]"
@@ -90,7 +102,7 @@ export function ToptalBadge({
               className="relative z-10 inline-flex items-center justify-center rounded-md bg-[#296bff] px-5 py-1 text-base font-medium text-white"
               style={{ textDecorationThickness: '0.5px', textUnderlineOffset: '2px' }}
             >
-              {ctaLabel}
+              <Editable path={editPath('settings', 1, 'badgeCtaLabel')} value={ctaLabel} />
             </a>
           </div>
         </div>

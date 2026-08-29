@@ -3,6 +3,8 @@
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { CommandKind } from '@/db/schema';
+import { announceSessionChange } from '@/components/edit/EditProvider';
+import { unlockAction } from '@/lib/actions/auth';
 
 export type PaletteCommand = {
   id: number;
@@ -31,6 +33,7 @@ export function CommandPalette({
   const [query, setQuery] = useState('');
   const [view, setView] = useState<View>({ mode: 'list' });
   const [selected, setSelected] = useState(0);
+  const [unlockNote, setUnlockNote] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const close = useCallback(() => {
@@ -38,7 +41,33 @@ export function CommandPalette({
     setQuery('');
     setView({ mode: 'list' });
     setSelected(0);
+    setUnlockNote(null);
   }, []);
+
+  /**
+   * The palette doubles as the way in to inline editing: when a query matches
+   * no command, Enter tries it as the edit code. Only ever sent on Enter, never
+   * per keystroke, and the server throttles attempts.
+   */
+  const tryUnlock = useCallback(
+    async (candidate: string) => {
+      setUnlockNote('checking…');
+      const result = await unlockAction(candidate);
+      if (result.ok) {
+        try {
+          sessionStorage.setItem('sam-edit-mode', 'edit');
+        } catch {
+          // Storage blocked; the toolbar still appears, just in preview.
+        }
+        close();
+        announceSessionChange();
+        router.refresh();
+      } else {
+        setUnlockNote(result.message);
+      }
+    },
+    [close, router],
+  );
 
   const backToList = useCallback(() => {
     setView({ mode: 'list' });
@@ -137,12 +166,13 @@ export function CommandPalette({
         event.preventDefault();
         const command = filtered[selected] ?? filtered[0];
         if (command) run(command);
+        else if (query.trim()) void tryUnlock(query.trim());
       }
     };
 
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [open, view.mode, filtered, selected, close, backToList, run]);
+  }, [open, view.mode, filtered, selected, query, close, backToList, run, tryUnlock]);
 
   useEffect(() => {
     if (open && view.mode === 'list') {
@@ -194,6 +224,7 @@ export function CommandPalette({
                 onChange={(e) => {
                   setQuery(e.target.value);
                   setSelected(0);
+                  setUnlockNote(null);
                 }}
                 placeholder={placeholder}
                 className="text-text placeholder:text-muted-2 min-w-0 flex-1 border-none bg-transparent text-base outline-none"
@@ -224,7 +255,9 @@ export function CommandPalette({
                   </button>
                 ))}
                 {filtered.length === 0 && (
-                  <div className="text-muted px-3 py-[11px] text-[15.5px]">No matches.</div>
+                  <div className="text-muted px-3 py-[11px] text-[15.5px]">
+                    {unlockNote ?? 'No matches.'}
+                  </div>
                 )}
               </div>
             ) : (

@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { Editable } from '@/components/edit/Editable';
+import { editPath } from '@/lib/inline/fields';
 
 const NAV = [
   { href: '/work', label: 'work' },
@@ -46,7 +48,7 @@ export function Header({ wordmark }: { wordmark: string }) {
           href="/"
           className="-my-2 py-2 text-[15px] font-semibold tracking-[-0.01em] whitespace-nowrap transition-opacity duration-300 hover:opacity-60"
         >
-          {wordmark}
+          <Editable path={editPath('settings', 1, 'wordmark')} value={wordmark} />
         </Link>
         <div className="flex-1" />
         <nav className="flex gap-4 font-mono text-[13px] sm:gap-[22px]">

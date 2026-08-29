@@ -45,52 +45,31 @@ export async function saveSettings(_prev: ActionState, formData: FormData): Prom
   const availabilityState = AVAILABILITY_STATES.find((candidate) => candidate === rawState);
   if (!availabilityState) return fail('Pick an availability state.');
 
+  /*
+   * Only the fields this form actually renders.
+   *
+   * Everything visible on the page is edited inline now and is deliberately
+   * absent from this form. Writing those columns here would read '' from the
+   * missing inputs and wipe the copy, so they must stay out of this object.
+   */
   try {
     await db
       .update(settings)
       .set({
-        wordmark: str(formData.get('wordmark')),
         fullName: str(formData.get('fullName')),
         jobTitle: str(formData.get('jobTitle')),
-        heroHeadline: str(formData.get('heroHeadline')),
-        heroParagraphs: parseParagraphs(formData.get('heroParagraphs')),
         avatarUrl: str(formData.get('avatarUrl')),
         avatarAlt: str(formData.get('avatarAlt')),
 
-        badgeEnabled: bool(formData.get('badgeEnabled')),
-        badgeHeadline: str(formData.get('badgeHeadline')),
-        badgeVettedBy: str(formData.get('badgeVettedBy')),
-        badgeCtaLabel: str(formData.get('badgeCtaLabel')),
-        badgeCtaUrl: str(formData.get('badgeCtaUrl')),
-
         email,
         phone: str(formData.get('phone')),
-        phoneLabel: str(formData.get('phoneLabel')),
         linkedinUrl: str(formData.get('linkedinUrl')),
-        linkedinLabel: str(formData.get('linkedinLabel')),
         githubUrl: str(formData.get('githubUrl')),
-        githubLabel: str(formData.get('githubLabel')),
         resumeUrl: str(formData.get('resumeUrl')),
-        resumeLabel: str(formData.get('resumeLabel')),
-
-        selectedWorkLabel: str(formData.get('selectedWorkLabel')),
-        selectedWorkCta: str(formData.get('selectedWorkCta')),
-
-        workTitle: str(formData.get('workTitle')),
-        workIntro: str(formData.get('workIntro')),
-        alsoShipped: str(formData.get('alsoShipped')),
-
-        aboutTitle: str(formData.get('aboutTitle')),
-        aboutParagraphs: parseParagraphs(formData.get('aboutParagraphs')),
-        experienceLabel: str(formData.get('experienceLabel')),
-        principlesLabel: str(formData.get('principlesLabel')),
-        educationLabel: str(formData.get('educationLabel')),
-
-        contactTitle: str(formData.get('contactTitle')),
-        contactIntro: str(formData.get('contactIntro')),
-
-        footerLeft: str(formData.get('footerLeft')),
         palettePlaceholder: str(formData.get('palettePlaceholder')),
+
+        badgeEnabled: bool(formData.get('badgeEnabled')),
+        badgeCtaUrl: str(formData.get('badgeCtaUrl')),
 
         availabilityState,
         availabilityAvailable: str(formData.get('availabilityAvailable')),

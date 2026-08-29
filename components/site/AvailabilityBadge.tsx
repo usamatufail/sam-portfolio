@@ -1,4 +1,5 @@
 import type { AvailabilityState } from '@/db/schema';
+import { Editable } from '@/components/edit/Editable';
 import { AVAILABILITY_DOT } from '@/lib/availability';
 
 /**
@@ -8,9 +9,12 @@ import { AVAILABILITY_DOT } from '@/lib/availability';
 export function AvailabilityBadge({
   state,
   message,
+  path,
 }: {
   state: AvailabilityState;
   message: string;
+  /** Inline-edit path for the message backing the current state. */
+  path: string;
 }) {
   return (
     <span className="inline-flex items-center gap-2">
@@ -18,7 +22,7 @@ export function AvailabilityBadge({
         aria-hidden="true"
         className={`h-[7px] w-[7px] flex-none rounded-full ${AVAILABILITY_DOT[state]}`}
       />
-      <span>{message}</span>
+      <Editable path={path} value={message} />
     </span>
   );
 }

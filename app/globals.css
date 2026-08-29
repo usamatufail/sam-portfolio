@@ -85,3 +85,43 @@
     filter: none !important;
   }
 }
+
+/* Inline editor. Only ever active when the editor is in edit mode, so the
+   public site renders with none of this. */
+[data-editable] {
+  cursor: text;
+  outline: 1px dashed oklch(0.74 0.135 243 / 0.35);
+  outline-offset: 3px;
+  border-radius: 2px;
+  transition:
+    outline-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+[data-editable]:hover {
+  outline-color: oklch(0.74 0.135 243 / 0.6);
+  background-color: oklch(0.74 0.135 243 / 0.06);
+}
+
+[data-editable]:focus {
+  outline: 1px solid var(--color-accent);
+  outline-offset: 3px;
+  background-color: oklch(0.74 0.135 243 / 0.08);
+}
+
+/* Empty fields still need to be clickable. */
+[data-editable]:empty::before {
+  content: attr(data-path);
+  opacity: 0.4;
+  font-style: italic;
+}
+
+/* When the inline editor is on, the floating bar would sit on top of the
+   sticky header. Push the page down by the bar's measured height instead. */
+:root[data-editor-active] body {
+  padding-top: var(--editor-offset, 68px);
+}
+
+:root[data-editor-active] header {
+  top: var(--editor-offset, 68px);
+}

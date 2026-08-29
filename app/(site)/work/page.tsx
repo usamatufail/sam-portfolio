@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import { Editable } from '@/components/edit/Editable';
+import { editPath } from '@/lib/inline/fields';
 import { getProjects, getSettings } from '@/lib/queries';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -20,12 +22,20 @@ export default async function WorkPage() {
   return (
     <>
       <section className="pt-[76px] pb-[26px]">
-        <h1 data-anim="" className="m-0 mb-[18px] text-[27px] font-semibold tracking-[-0.025em]">
-          {settings.workTitle}
-        </h1>
-        <p data-anim="" className="text-text-4 m-0 max-w-[62ch] text-[17.5px] leading-[1.72]">
-          {settings.workIntro}
-        </p>
+        <Editable
+          as="h1"
+          reveal
+          path={editPath('settings', 1, 'workTitle')}
+          value={settings.workTitle}
+          className="m-0 mb-[18px] block text-[27px] font-semibold tracking-[-0.025em]"
+        />
+        <Editable
+          as="p"
+          multiline
+          path={editPath('settings', 1, 'workIntro')}
+          value={settings.workIntro}
+          className="text-text-4 m-0 max-w-[62ch] text-[17.5px] leading-[1.72]"
+        />
       </section>
 
       <section className="pb-[84px]" style={{ transformStyle: 'preserve-3d' }}>
@@ -38,28 +48,37 @@ export default async function WorkPage() {
             }`}
           >
             <div className="text-muted mb-[14px] flex items-baseline gap-[14px] font-mono text-[12.5px]">
-              <span>{project.year}</span>
-              <span>{project.category}</span>
+              <Editable path={editPath('projects', project.id, 'year')} value={project.year} />
+              <Editable
+                path={editPath('projects', project.id, 'category')}
+                value={project.category}
+              />
             </div>
 
-            <h2 className="m-0 mb-[14px] text-[21px] font-semibold tracking-[-0.02em]">
-              {project.caseTitle}
-            </h2>
+            <Editable
+              as="h2"
+              multiline
+              path={editPath('projects', project.id, 'caseTitle')}
+              value={project.caseTitle}
+              className="m-0 mb-[14px] block text-[21px] font-semibold tracking-[-0.02em]"
+            />
 
             {project.body.map((paragraph, i) => (
-              <p
+              <Editable
                 key={i}
+                as="p"
+                multiline
+                path={editPath('projects', project.id, 'body', i)}
+                value={paragraph}
                 className={`text-text-3 m-0 max-w-[64ch] text-[17px] leading-[1.72] ${
                   i === project.body.length - 1 ? 'mb-5' : 'mb-[14px]'
                 }`}
-              >
-                {paragraph}
-              </p>
+              />
             ))}
 
             <div className="text-tech flex flex-wrap gap-x-[18px] gap-y-1.5 font-mono text-[12.5px]">
-              {project.tech.map((item) => (
-                <span key={item}>{item}</span>
+              {project.tech.map((item, i) => (
+                <Editable key={i} path={editPath('projects', project.id, 'tech', i)} value={item} />
               ))}
               {project.linkUrl && (
                 <a
@@ -68,16 +87,24 @@ export default async function WorkPage() {
                   rel="noreferrer"
                   className="text-accent -my-2 inline-block py-2"
                 >
-                  {project.linkLabel ?? project.linkUrl}
+                  <Editable
+                    path={editPath('projects', project.id, 'linkLabel')}
+                    value={project.linkLabel ?? project.linkUrl}
+                  />
                 </a>
               )}
             </div>
           </article>
         ))}
 
-        <p data-anim="" className="text-muted mt-[30px] mb-0 font-mono text-[12.5px] leading-[1.9]">
-          {settings.alsoShipped}
-        </p>
+        <Editable
+          as="p"
+          multiline
+          reveal
+          path={editPath('settings', 1, 'alsoShipped')}
+          value={settings.alsoShipped}
+          className="text-muted mt-[30px] mb-0 block font-mono text-[12.5px] leading-[1.9]"
+        />
       </section>
     </>
   );

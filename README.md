@@ -70,6 +70,36 @@ lib/                    auth, session, queries (cached), actions (mutations)
 proxy.ts                fast redirect for /admin (Next 16 renamed middleware -> proxy)
 ```
 
+### Editing content
+
+There are two places, split by whether the text is visible on the page.
+
+**Inline, on the site itself.** Open any page, press `⌘K`, type the admin code into the
+palette and hit Enter. A floating bar appears with `edit` / `preview`, a save button and a
+lock. In edit mode every heading, paragraph, label and list row is directly editable;
+`⌘S` saves, and saving revalidates the live pages immediately. This is the fast path and
+covers all visible copy.
+
+**`/admin`, for everything with no on-page text to click.** Link destinations, the avatar
+source, availability state, SEO metadata, and the structural operations inline editing
+cannot express: adding, deleting and reordering projects, experience rows, principles,
+education lines and palette commands.
+
+Two things worth knowing before changing this:
+
+- **`/api/edit-session` exists so the public pages stay static.** Reading the session
+  cookie in the site layout would opt every page out of prerendering, which is what the
+  SEO depends on. The pages render statically for everyone and the editor bootstraps after
+  hydration.
+- **The settings form only writes the fields it renders.** A form submits only its own
+  inputs, so if `saveSettings` still wrote the inline-edited columns it would read `''`
+  from the missing inputs and wipe the copy. If you add a field to that form, add it to the
+  action too, and vice versa.
+
+Inline saves arrive as `table:id:field[:index]` paths from the browser, so
+`lib/inline/fields.ts` is a security boundary, not a convenience: anything not on that
+allowlist is dropped rather than written.
+
 ### Content and caching
 
 Public pages read through `lib/queries.ts`, where every query is wrapped in `unstable_cache`
