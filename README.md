@@ -154,6 +154,17 @@ and motion. Two rules worth keeping:
 - **Do not restyle Toptal's badge.** It is their embeddable mark. Its CTA carries a referral
   fragment, which is why `badgeCtaUrl` is a separate field from the plain résumé link.
 
+## Social preview
+
+`app/opengraph-image.png` and `app/twitter-image.png` are the 1200x630 cards shown when the
+link is pasted into LinkedIn, Slack, WhatsApp or X. They are static files rather than a
+generated `ImageResponse`, so regenerate them if the name or role changes:
+`pnpm og` in `~/Desktop/sam-portfolio-probes` with the dev server running.
+
+`NEXT_PUBLIC_SITE_URL` **must be the host that actually serves the site.** The apex
+redirects to `www`, so pointing it at the apex makes every canonical URL, `og:url` and
+sitemap entry reference a URL that 308s away.
+
 ## Deploying
 
 Push to GitHub, import on Vercel (framework preset: Next.js), and set the four environment
