@@ -1,3 +1,2 @@
-ignoredBuiltDependencies:
-  - sharp
-  - unrs-resolver
+# Build scripts are allowed via pnpm.onlyBuiltDependencies in package.json.
+ignoredBuiltDependencies: []

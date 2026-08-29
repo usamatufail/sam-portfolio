@@ -41,6 +41,9 @@ yarn-error.log*
 next-env.d.ts
 .neon
 
-# agent skills (re-installable via `npx skills add`)
+# agent skills (re-installable via `npx skills add`).
+# .claude/skills only contains symlinks into .agents, so committing them
+# would leave anyone cloning with dangling links.
 .agents
+.claude/skills
 skills-lock.json
