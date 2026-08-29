@@ -3,7 +3,7 @@ import { AddButton } from '@/components/admin/AddButton';
 import { EducationForm } from '@/components/admin/ListForms';
 import { db } from '@/db';
 import { education } from '@/db/schema';
-import { addEducation } from '@/lib/actions/content';
+import { addEducation } from '@/lib/actions/lists';
 
 export const dynamic = 'force-dynamic';
 

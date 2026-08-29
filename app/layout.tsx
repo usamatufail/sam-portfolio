@@ -26,6 +26,9 @@ export const viewport: Viewport = {
 export async function generateMetadata(): Promise<Metadata> {
   const s = await getSettings();
 
+  // Deliberately NOT truncated: these two fields are written as SEO copy in the
+  // admin panel, so hard-cutting them would end the sentence mid-phrase in every
+  // context. Sub-page descriptions are derived from page prose and are trimmed.
   return {
     metadataBase: new URL(siteUrl()),
     title: { default: s.seoTitle, template: `%s · ${s.fullName}` },

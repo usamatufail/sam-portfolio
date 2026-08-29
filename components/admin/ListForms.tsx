@@ -9,12 +9,10 @@ import {
   saveEducation,
   saveExperience,
   savePrinciples,
-} from '@/lib/actions/content';
+} from '@/lib/actions/lists';
 import type { ActionState } from '@/lib/actions/types';
 import { SaveBar } from './ui';
-
-const inputBase =
-  'w-full rounded-lg border border-rule bg-bg px-3 py-2.5 text-[15px] text-text outline-none transition-colors focus:border-accent';
+import { inputBase } from './ui/styles';
 
 function Label({ children }: { children: React.ReactNode }) {
   return <span className="text-muted mb-1.5 block font-mono text-[12px]">{children}</span>;

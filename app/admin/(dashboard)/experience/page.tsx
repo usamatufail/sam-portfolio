@@ -3,7 +3,7 @@ import { AddButton } from '@/components/admin/AddButton';
 import { ExperienceForm } from '@/components/admin/ListForms';
 import { db } from '@/db';
 import { experience } from '@/db/schema';
-import { addExperience } from '@/lib/actions/content';
+import { addExperience } from '@/lib/actions/lists';
 
 export const dynamic = 'force-dynamic';
 

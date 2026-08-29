@@ -2,8 +2,8 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import { Editable } from '@/components/edit/Editable';
+import { useScrolledPast } from '@/hooks/useScrolledPast';
 import { editPath } from '@/lib/inline/fields';
 
 const NAV = [
@@ -14,24 +14,7 @@ const NAV = [
 
 export function Header({ wordmark }: { wordmark: string }) {
   const pathname = usePathname();
-  const [lifted, setLifted] = useState(false);
-
-  useEffect(() => {
-    let raf = 0;
-    const read = () => {
-      raf = 0;
-      setLifted((window.pageYOffset || document.documentElement.scrollTop || 0) > 8);
-    };
-    const onScroll = () => {
-      if (!raf) raf = window.requestAnimationFrame(read);
-    };
-    read();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      if (raf) window.cancelAnimationFrame(raf);
-    };
-  }, []);
+  const lifted = useScrolledPast();
 
   return (
     <header
@@ -46,12 +29,12 @@ export function Header({ wordmark }: { wordmark: string }) {
       <div className="mx-auto flex w-full max-w-[720px] items-center gap-4 px-5 py-[26px] sm:gap-5 sm:px-[28px]">
         <Link
           href="/"
-          className="-my-2 py-2 text-[15px] font-semibold tracking-[-0.01em] whitespace-nowrap transition-opacity duration-300 hover:opacity-60"
+          className="-my-2 min-w-0 truncate py-2 text-[15px] font-semibold tracking-[-0.01em] transition-opacity duration-300 hover:opacity-60"
         >
           <Editable path={editPath('settings', 1, 'wordmark')} value={wordmark} />
         </Link>
         <div className="flex-1" />
-        <nav className="flex gap-4 font-mono text-[13px] sm:gap-[22px]">
+        <nav className="flex flex-none gap-4 font-mono text-[13px] sm:gap-[22px]">
           {NAV.map((item) => (
             <Link
               key={item.href}

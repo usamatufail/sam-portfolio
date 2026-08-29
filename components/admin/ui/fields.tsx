@@ -1,10 +1,6 @@
 'use client';
 
-import { useFormStatus } from 'react-dom';
-import type { ActionState } from '@/lib/actions/types';
-
-const inputBase =
-  'w-full rounded-lg border border-rule bg-bg px-3 py-2.5 text-[15px] text-text outline-none transition-colors placeholder:text-faint focus:border-accent';
+import { inputBase } from './styles';
 
 export function Field({
   label,
@@ -125,86 +121,5 @@ export function Toggle({
         {hint && <span className="text-faint mt-0.5 block text-[13px]">{hint}</span>}
       </span>
     </label>
-  );
-}
-
-export function Section({
-  title,
-  description,
-  children,
-  columns = 2,
-}: {
-  title: string;
-  description?: string;
-  children: React.ReactNode;
-  columns?: 1 | 2;
-}) {
-  return (
-    <section className="border-rule bg-panel rounded-2xl border p-6">
-      <h2 className="m-0 text-[17px] font-semibold tracking-[-0.015em]">{title}</h2>
-      {description && <p className="text-text-5 mt-1.5 mb-0 text-[14px]">{description}</p>}
-      <div className={`mt-5 grid gap-5 ${columns === 2 ? 'sm:grid-cols-2' : ''}`}>{children}</div>
-    </section>
-  );
-}
-
-export function SubmitButton({ children = 'Save changes' }: { children?: React.ReactNode }) {
-  const { pending } = useFormStatus();
-  return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="bg-accent text-bg cursor-pointer rounded-lg px-5 py-2.5 text-[15px] font-semibold transition-opacity hover:opacity-85 disabled:cursor-wait disabled:opacity-60"
-    >
-      {pending ? 'Saving…' : children}
-    </button>
-  );
-}
-
-export function DangerButton({ children }: { children: React.ReactNode }) {
-  const { pending } = useFormStatus();
-  return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="border-rule text-text-5 cursor-pointer rounded-lg border px-3 py-1.5 font-mono text-[12px] transition-colors hover:border-[oklch(0.6_0.19_25)] hover:text-[oklch(0.7_0.19_25)] disabled:opacity-50"
-    >
-      {pending ? '…' : children}
-    </button>
-  );
-}
-
-export function GhostButton({ children }: { children: React.ReactNode }) {
-  const { pending } = useFormStatus();
-  return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="border-rule text-text-5 hover:border-accent hover:text-accent cursor-pointer rounded-lg border px-3 py-1.5 font-mono text-[12px] transition-colors disabled:opacity-50"
-    >
-      {pending ? '…' : children}
-    </button>
-  );
-}
-
-export function Status({ state }: { state: ActionState }) {
-  if (!state) return null;
-  return (
-    <p
-      role="status"
-      className={`m-0 font-mono text-[13px] ${state.ok ? 'text-accent' : 'text-[oklch(0.72_0.19_25)]'}`}
-    >
-      {state.message}
-    </p>
-  );
-}
-
-/** Sticky footer bar carrying the submit button and the last save message. */
-export function SaveBar({ state }: { state: ActionState }) {
-  return (
-    <div className="border-rule bg-bg/90 sticky bottom-0 -mx-1 flex items-center gap-4 border-t px-1 py-4 backdrop-blur">
-      <SubmitButton />
-      <Status state={state} />
-    </div>
   );
 }

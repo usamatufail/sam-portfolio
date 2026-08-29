@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { DangerButton, GhostButton } from '@/components/admin/ui';
 import { db } from '@/db';
 import { projects } from '@/db/schema';
-import { deleteProject, moveProject } from '@/lib/actions/content';
+import { deleteProject, moveProject } from '@/lib/actions/projects';
 
 export const dynamic = 'force-dynamic';
 

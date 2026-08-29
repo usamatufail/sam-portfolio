@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useActionState, useState } from 'react';
 import { AVAILABILITY_STATES, type Settings } from '@/db/schema';
-import { saveSettings } from '@/lib/actions/content';
+import { saveSettings } from '@/lib/actions/settings';
 import type { ActionState } from '@/lib/actions/types';
 import { Field, SaveBar, Section, Select, TextArea, Toggle } from './ui';
 

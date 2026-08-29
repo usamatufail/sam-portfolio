@@ -1,19 +1,17 @@
 import type { Metadata } from 'next';
 import { Editable } from '@/components/edit/Editable';
 import { editPath } from '@/lib/inline/fields';
+import { buildPageMetadata } from '@/lib/seo/metadata';
 import { getProjects, getSettings } from '@/lib/queries';
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettings();
-  return {
+  return buildPageMetadata({
     title: settings.workTitle,
     description: settings.workIntro,
-    alternates: { canonical: '/work' },
-    openGraph: {
-      title: `${settings.workTitle} · ${settings.fullName}`,
-      description: settings.workIntro,
-    },
-  };
+    path: '/work',
+    siteName: settings.fullName,
+  });
 }
 
 export default async function WorkPage() {

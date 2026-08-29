@@ -55,20 +55,48 @@ pnpm dev
 app/
   layout.tsx            root: fonts, base metadata
   (site)/               public site, statically prerendered
-    layout.tsx          header, footer, ⌘K palette, reveal animations
-    page.tsx            home (+ JSON-LD Person schema)
-    work|about|contact/
-  admin/
-    layout.tsx          noindex wrapper
-    login/              passcode form
-    (dashboard)/        every editor, guarded by requireAdmin()
-  sitemap.ts robots.ts
-components/site/        Header, CommandPalette, RevealRoot, Avatar, ToptalBadge
-components/admin/       forms + shared field primitives
-db/                     schema.ts, index.ts, seed.mts
-lib/                    auth, session, queries (cached), actions (mutations)
-proxy.ts                fast redirect for /admin (Next 16 renamed middleware -> proxy)
+  admin/                passcode-gated panel
+  api/edit-session/     keeps the public pages static (see Editing content)
+  sitemap.ts robots.ts opengraph-image.jpg icon.png
+
+components/
+  site/                 Header, CommandPalette, RevealRoot, ToptalBadge, JsonLd
+  edit/                 EditProvider (composition), context, Editable, EditToolbar
+  admin/                forms, plus ui/ split into fields, buttons, feedback, Section
+
+hooks/                  all stateful browser behaviour
+  useScrollReveal  useParallax  useScrolledPast
+  useCommandPalette  useHotkey
+  useEditSession  useInlineEditor  useDirtyValues
+  useEditLinkGuard  useUnsavedWarning  useEditorOffset
+
+lib/
+  actions/              one module per entity: settings, projects, lists,
+                        commands, inline, auth. Plus ordering + revalidate,
+                        which are intentionally NOT 'use server'.
+  animation/reveal.ts   DOM primitives for the motion
+  edit/                 session helpers and shared types
+  inline/fields.ts      the inline-edit allowlist (security boundary)
+  seo/                  person schema, page metadata builder
+  queries.ts            cached public reads
+  auth.ts session.ts parse.ts availability.ts commands.ts site.ts
+
+db/                     schema.ts, seed-data.ts (data), seed.mts (procedure)
+proxy.ts                fast redirect for /admin
 ```
+
+The split follows one rule: **components render, hooks hold behaviour, lib holds
+logic that does not need React.** If a component grows an effect with more than a
+few lines in it, that effect probably wants to be a hook.
+
+Two deliberate exceptions worth knowing:
+
+- `lib/actions/ordering.ts` and `lib/actions/revalidate.ts` have no `'use server'`
+  directive. Every export of a `'use server'` module is a callable endpoint, and
+  these are internal helpers.
+- `components/edit/context.ts` is separate from `EditProvider` and splits state
+  across four contexts by change frequency, so a keystroke re-renders the toolbar
+  and not the contentEditable node being typed into.
 
 ### Editing content
 

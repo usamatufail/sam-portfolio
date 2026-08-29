@@ -4,7 +4,7 @@ import { AddButton } from '@/components/admin/AddButton';
 import { DangerButton, GhostButton } from '@/components/admin/ui';
 import { db } from '@/db';
 import { commands } from '@/db/schema';
-import { addCommand, deleteCommand, moveCommand } from '@/lib/actions/content';
+import { addCommand, deleteCommand, moveCommand } from '@/lib/actions/commands';
 
 export const dynamic = 'force-dynamic';
 

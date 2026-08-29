@@ -1,36 +1,20 @@
 import Link from 'next/link';
 import { Editable } from '@/components/edit/Editable';
+import { JsonLd } from '@/components/site/JsonLd';
 import { Avatar } from '@/components/site/Avatar';
 import { ToptalBadge } from '@/components/site/ToptalBadge';
 import { editPath } from '@/lib/inline/fields';
 import { getProjects, getSettings } from '@/lib/queries';
+import { buildPersonSchema } from '@/lib/seo/person';
 import { siteUrl } from '@/lib/site';
 
 export default async function HomePage() {
   const [settings, projects] = await Promise.all([getSettings(), getProjects()]);
   const featured = projects.filter((p) => p.featured);
 
-  const personSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: settings.fullName,
-    alternateName: 'Sam Tufail',
-    jobTitle: settings.jobTitle,
-    description: settings.seoDescription,
-    url: siteUrl(),
-    image: `${siteUrl()}${settings.avatarUrl}`,
-    email: `mailto:${settings.email}`,
-    sameAs: [settings.linkedinUrl, settings.githubUrl, settings.resumeUrl],
-    knowsAbout: settings.seoKeywords.split(',').map((k) => k.trim()),
-  };
-
   return (
     <>
-      <script
-        type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
-      />
+      <JsonLd schema={buildPersonSchema(settings, siteUrl())} />
 
       <section className="pt-[76px] pb-[78px]" style={{ transformStyle: 'preserve-3d' }}>
         <div

@@ -1,15 +1,11 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useEffect, useRef, useTransition } from 'react';
+import { useRef, useTransition } from 'react';
 import { lockAction } from '@/lib/actions/auth';
-import {
-  announceSessionChange,
-  useCanEdit,
-  useEditActions,
-  useEditMode,
-  useEditStatus,
-} from './EditProvider';
+import { useEditorOffset } from '@/hooks/useEditorOffset';
+import { announceSessionChange } from '@/lib/edit/session';
+import { useCanEdit, useEditActions, useEditMode, useEditStatus } from './context';
 
 function PencilIcon() {
   return (
@@ -52,37 +48,7 @@ export function EditToolbar() {
   const [locking, startLock] = useTransition();
   const barRef = useRef<HTMLDivElement>(null);
 
-  /**
-   * The bar floats over the sticky header, so the document is pushed down by
-   * however tall the bar actually is. Measured rather than hard-coded because
-   * it wraps to two rows on narrow screens.
-   */
-  useEffect(() => {
-    const root = document.documentElement;
-    if (!canEdit) {
-      root.removeAttribute('data-editor-active');
-      root.style.removeProperty('--editor-offset');
-      return;
-    }
-    root.setAttribute('data-editor-active', '');
-    const bar = barRef.current;
-    if (!bar) return;
-
-    const apply = () => {
-      root.style.setProperty(
-        '--editor-offset',
-        `${Math.ceil(bar.getBoundingClientRect().height) + 24}px`,
-      );
-    };
-    apply();
-    const observer = new ResizeObserver(apply);
-    observer.observe(bar);
-    return () => {
-      observer.disconnect();
-      root.removeAttribute('data-editor-active');
-      root.style.removeProperty('--editor-offset');
-    };
-  }, [canEdit]);
+  useEditorOffset(barRef, canEdit);
 
   if (!canEdit) return null;
 

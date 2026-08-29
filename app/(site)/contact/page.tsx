@@ -1,20 +1,18 @@
 import type { Metadata } from 'next';
 import { Editable } from '@/components/edit/Editable';
 import { editPath } from '@/lib/inline/fields';
+import { buildPageMetadata } from '@/lib/seo/metadata';
 import { getSettings } from '@/lib/queries';
 import { whatsappUrl } from '@/lib/site';
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettings();
-  return {
+  return buildPageMetadata({
     title: settings.contactTitle,
     description: settings.contactIntro,
-    alternates: { canonical: '/contact' },
-    openGraph: {
-      title: `${settings.contactTitle} · ${settings.fullName}`,
-      description: settings.contactIntro,
-    },
-  };
+    path: '/contact',
+    siteName: settings.fullName,
+  });
 }
 
 export default async function ContactPage() {

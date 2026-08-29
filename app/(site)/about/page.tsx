@@ -1,17 +1,18 @@
 import type { Metadata } from 'next';
 import { Editable } from '@/components/edit/Editable';
 import { editPath } from '@/lib/inline/fields';
+import { buildPageMetadata } from '@/lib/seo/metadata';
 import { getEducation, getExperience, getPrinciples, getSettings } from '@/lib/queries';
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettings();
-  const description = settings.aboutParagraphs[0] ?? settings.seoDescription;
-  return {
+  return buildPageMetadata({
     title: settings.aboutTitle,
-    description,
-    alternates: { canonical: '/about' },
-    openGraph: { title: `${settings.aboutTitle} · ${settings.fullName}`, description },
-  };
+    // The opening paragraph is long-form prose, so it gets trimmed to a snippet.
+    description: settings.aboutParagraphs[0] ?? settings.seoDescription,
+    path: '/about',
+    siteName: settings.fullName,
+  });
 }
 
 export default async function AboutPage() {

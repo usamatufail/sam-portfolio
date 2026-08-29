@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useActionState } from 'react';
 import type { Project } from '@/db/schema';
-import { createProject, updateProject } from '@/lib/actions/content';
+import { createProject, updateProject } from '@/lib/actions/projects';
 import type { ActionState } from '@/lib/actions/types';
 import { formatParagraphs, formatTokens } from '@/lib/parse';
 import { Field, SaveBar, Section, TextArea, Toggle } from './ui';

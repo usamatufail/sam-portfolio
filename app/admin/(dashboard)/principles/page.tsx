@@ -3,7 +3,7 @@ import { AddButton } from '@/components/admin/AddButton';
 import { PrinciplesForm } from '@/components/admin/ListForms';
 import { db } from '@/db';
 import { principles } from '@/db/schema';
-import { addPrinciple } from '@/lib/actions/content';
+import { addPrinciple } from '@/lib/actions/lists';
 
 export const dynamic = 'force-dynamic';
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, type ElementType } from 'react';
-import { useEditActions, useEditMode, useRegisterOriginal } from './EditProvider';
+import { useEditActions, useEditMode, useRegisterOriginal } from './context';
 
 /**
  * One inline-editable piece of copy.
