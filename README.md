@@ -156,10 +156,16 @@ and motion. Two rules worth keeping:
 
 ## Social preview
 
-`app/opengraph-image.png` and `app/twitter-image.png` are the 1200x630 cards shown when the
-link is pasted into LinkedIn, Slack, WhatsApp or X. They are static files rather than a
-generated `ImageResponse`, so regenerate them if the name or role changes:
-`pnpm og` in `~/Desktop/sam-portfolio-probes` with the dev server running.
+`app/opengraph-image.jpg` and `app/twitter-image.jpg` are the cards shown when the link is
+pasted into LinkedIn, Slack, WhatsApp or X. Static files rather than a generated
+`ImageResponse`, so regenerate them if the name or role changes: `pnpm og` in
+`~/Desktop/sam-portfolio-probes`.
+
+Rendered at **2400x1260, twice the 1200x630 slot**. LinkedIn displays the card at up to 2x
+on retina screens, so a 1200px-wide source is upscaled and looks blurry. The portrait comes
+from an 840px crop of the original photo rather than the site's 500px avatar, so it is still
+downscaling at 2x. JPEG at quality 92 rather than PNG: same 2400px card is ~750KB as PNG and
+~140KB as JPEG, with no visible difference in the text.
 
 `NEXT_PUBLIC_SITE_URL` **must be the host that actually serves the site.** The apex
 redirects to `www`, so pointing it at the apex makes every canonical URL, `og:url` and
