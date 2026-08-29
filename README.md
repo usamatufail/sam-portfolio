@@ -199,6 +199,21 @@ downscaling at 2x. JPEG at quality 92 rather than PNG: same 2400px card is ~750K
 redirects to `www`, so pointing it at the apex makes every canonical URL, `og:url` and
 sitemap entry reference a URL that 308s away.
 
+## SEO
+
+`pnpm seo` in `~/Desktop/sam-portfolio-probes` audits a running build: crawlability,
+unique titles and descriptions, heading structure, structured data, social cards,
+robots and sitemap. 95 checks.
+
+Two things it exists to catch, both of which it did catch:
+
+- **A page that sets its own `openGraph` replaces the root's completely.** Next merges
+  metadata shallowly, so `/work`, `/about` and `/contact` shipped with no social card at
+  all until `buildPageMetadata` started spelling out `url` and `images`. Use that helper
+  for any new page rather than hand-rolling an `openGraph` object.
+- **Heading levels.** The Toptal badge's wordmark was an `<h3>` directly after the page
+  `<h1>`, skipping a level. It is branding, not a section heading, so it is a `<div>` now.
+
 ## Deploying
 
 Push to GitHub, import on Vercel (framework preset: Next.js), and set the four environment
